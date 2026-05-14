@@ -125,26 +125,26 @@
     }
 
     .rb-thankyou {
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
 
     .rb-hed {
       font-family: 'Fraunces', serif;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 400;
-      color: var(--dark);
+      color: #FFFFFF;
       margin-bottom: 0.75rem;
     }
 
     .rb-body {
-      font-size: 0.92rem;
-      color: var(--muted);
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.72);
       line-height: 1.65;
-      margin-bottom: 0.65rem;
+      margin-bottom: 0.6rem;
     }
 
     .rb-body strong {
-      color: var(--dark);
+      color: rgba(255,255,255,0.95);
     }
   </style>
 </head>
@@ -570,11 +570,25 @@
       document.getElementById('teaserProgress').textContent = answered + ' / 14';
     }
 
+    function generateToken(name, company) {
+      // 3-letter abbreviation from company or name (letters only, uppercase)
+      const src = (company || name || 'CLI').toUpperCase().replace(/[^A-Z]/g, '');
+      const abbr = (src + 'CLI').substring(0, 3);
+      // 4 random chars — avoid ambiguous 0/O and 1/l
+      const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+      let rand = '';
+      for (let i = 0; i < 4; i++) rand += chars.charAt(Math.floor(Math.random() * chars.length));
+      return 'SN-' + abbr + '-' + rand;
+    }
+
     function submitTeaser() {
       const name    = document.getElementById('t-name').value.trim();
       const company = document.getElementById('t-company').value.trim();
       const email   = document.getElementById('t-email').value.trim();
       if (!email) { alert('Please enter your email address.'); return; }
+
+      // Generate a suggested access token for this client
+      const token = generateToken(name, company);
 
       // Build full-assessment ratings map
       const fullRatings = {};
@@ -593,7 +607,8 @@
       };
 
       const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(resumeData))));
-      const resumeURL = window.location.origin + window.location.pathname.replace('opportunity.html','') + 'assessment.html?d=' + encoded;
+      // Token is baked into the resumption link — Tim just adds it to VALID_TOKENS and the link works
+      const resumeURL = window.location.origin + window.location.pathname.replace('opportunity.html','') + 'assessment.html?token=' + token + '&d=' + encoded;
 
       document.getElementById('resumeLink').textContent = resumeURL;
       document.getElementById('resumeLink').href = resumeURL;
@@ -626,12 +641,13 @@
           Company: company || '—',
           Email: email,
           Revenue: rev_str,
+          Access_Token: token + '  ← add this to VALID_TOKENS in assessment.html before sending the link',
           Ratings: ratings_summary,
           Resumption_Link: resumeURL
         })
       }).catch(() => {
         // Fallback if FormSubmit unreachable
-        const fallback = 'Sentir Teaser — ' + name + ' / ' + company + '\nRevenue: ' + rev_str + ratings_summary + '\nResumption link:\n' + resumeURL;
+        const fallback = 'Sentir Teaser — ' + name + ' / ' + company + '\nRevenue: ' + rev_str + '\nAccess Token: ' + token + '  ← add to VALID_TOKENS before sending link' + ratings_summary + '\nResumption link:\n' + resumeURL;
         window.open('mailto:timothy.hislop@sentir-solutions.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(fallback));
       });
     }
