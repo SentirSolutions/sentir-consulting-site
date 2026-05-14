@@ -388,7 +388,8 @@
     }
 
     function showResults(c) {
-      document.getElementById('results-placeholder').style.display = 'none';
+      const ph = document.getElementById('results-placeholder');
+      if (ph) ph.style.display = 'none';
       show('card-waste');
       document.getElementById('val-waste').textContent = fmtRange(c.wasteMin, c.wasteMax);
       document.getElementById('desc-waste').textContent = `Conservative estimate of hidden profit — vendor contracts, manual processes, and spending that no longer fits. On your revenue, that's ${fmtRange(c.wasteMin,c.wasteMax)} per year waiting to be unlocked.`;
@@ -410,14 +411,14 @@
     function hideResults() {
       document.getElementById('results-placeholder').style.display = 'block';
       ['card-waste','card-valuation','card-admin','card-total','disclaimer','go-deeper'].forEach(id => {
-                const el = document.getElementById(id);
-        if (el) el.style.display = 'none';
+        const el = document.getElementById(id);
+        if (el) { el.classList.remove('visible'); el.style.display = ''; }
       });
     }
 
     function show(id) {
       const el = document.getElementById(id);
-      if (el) el.classList.add('visible');
+      if (el) { el.style.display = ''; el.classList.add('visible'); }
     }
 
     // ══════════════════════════════════════════
@@ -612,7 +613,7 @@
       (entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
       { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
     );
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
