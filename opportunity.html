@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Opportunity — Sentir Consulting</title>
+  <meta name="description" content="Enter a few numbers about your business and see a realistic estimate of the opportunity Sentir could identify — waste, valuation gap, and admin time recovered." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* ── CALCULATOR LAYOUT ── */
+    .calc-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+
+    /* ── INPUTS ── */
+    .calc-inputs {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 2.5rem;
+    }
+
+    .calc-inputs h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.2rem;
+      color: var(--dark);
+      margin-bottom: 0.35rem;
+    }
+
+    .calc-inputs .hint {
+      font-size: 0.83rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .field {
+      margin-bottom: 1.75rem;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .field .field-hint {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .input-prefix-wrap {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      background: var(--bg);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .input-prefix-wrap:focus-within {
+      border-color: var(--accent);
+    }
+
+    .input-prefix {
+      background: var(--border);
+      color: var(--muted);
+      padding: 0.7rem 0.85rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .input-prefix-wrap input {
+      border: none;
+      background: transparent;
+      padding: 0.7rem 0.85rem;
+      font-size: 0.93rem;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      width: 100%;
+      outline: none;
+    }
+
+    .field input[type="number"],
+    .field input[type="text"],
+    .field input[type="email"] {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      background: var(--bg);
+      padding: 0.7rem 0.85rem;
+      font-size: 0.93rem;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .field input:focus {
+      border-color: var(--accent);
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      cursor: pointer;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      background: var(--bg);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .radio-option:hover {
+      border-color: var(--accent);
+    }
+
+    .radio-option.selected {
+      border-color: var(--accent);
+      background: rgba(139,108,62,0.05);
+    }
+
+    .radio-option input[type="radio"] {
+      margin-top: 2px;
+      accent-color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .radio-option .radio-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .radio-option .radio-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ── RESULTS ── */
+    .calc-results {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .results-placeholder {
+      background: var(--bg-alt);
+      border: 1px dashed var(--border);
+      border-radius: 2px;
+      padding: 3rem 2rem;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .results-placeholder p {
+      font-size: 0.93rem;
+      line-height: 1.7;
+      margin-top: 0.5rem;
+    }
+
+    .result-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 1.5rem 1.75rem;
+      border-radius: 2px;
+      display: none;
+    }
+
+    .result-card.visible { display: block; }
+
+    .result-card .result-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .result-card .result-value {
+      font-family: 'Fraunces', serif;
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: var(--dark);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .result-card .result-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .total-card {
+      background: var(--dark);
+      color: #FFFFFF;
+      border-radius: 2px;
+      padding: 2rem 1.75rem;
+      display: none;
+    }
+
+    .total-card.visible { display: block; }
+
+    .total-card .total-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-lt);
+      margin-bottom: 0.5rem;
+    }
+
+    .total-card .total-value {
+      font-family: 'Fraunces', serif;
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: #FFFFFF;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .total-card .total-desc {
+      font-size: 0.85rem;
+      color: #9A9690;
+      line-height: 1.6;
+    }
+
+    .disclaimer {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.6;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      display: none;
+    }
+
+    .disclaimer.visible { display: block; }
+
+    /* ── LEAD CAPTURE ── */
+    .lead-capture {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 2rem;
+      display: none;
+      margin-top: 0.5rem;
+    }
+
+    .lead-capture.visible { display: block; }
+
+    .lead-capture h4 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem;
+      color: var(--dark);
+      margin-bottom: 0.35rem;
+    }
+
+    .lead-capture p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .lead-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .lead-fields input {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      background: var(--bg);
+      padding: 0.65rem 0.85rem;
+      font-size: 0.88rem;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .lead-fields input:focus { border-color: var(--accent); }
+
+    .lead-fields .full { grid-column: 1 / -1; }
+
+    .submit-status {
+      font-size: 0.83rem;
+      margin-top: 0.75rem;
+      display: none;
+    }
+
+    .submit-status.success { color: #2D6A4F; display: block; }
+    .submit-status.error { color: #C0392B; display: block; }
+
+    @media (max-width: 900px) {
+      .calc-wrapper { grid-template-columns: 1fr; }
+      .lead-fields { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html"><span class="mark-pipe1">(</span><span class="mark-pipe2">(</span> Sentir Consulting</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="how-we-help.html" class="nav-link">How We Help</a>
+      <a href="mission.html" class="nav-link">Our Mission</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="opportunity.html" class="nav-link cta active">Your Opportunity</a>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <div class="container">
+      <p class="section-label light">Your Opportunity</p>
+      <h1>See the numbers<br /><em>before the conversation.</em></h1>
+      <p>
+        Enter a few facts about your business. We'll show you a realistic estimate of
+        the opportunity — waste, valuation gap, and time recovered — based on what
+        we typically find in businesses like yours.
+      </p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+
+      <div class="calc-wrapper">
+
+        <!-- INPUTS -->
+        <div class="calc-inputs">
+          <h3>About Your Business</h3>
+          <p class="hint">All fields are estimates — use round numbers. Results update automatically.</p>
+
+          <div class="field">
+            <label for="revenue">Annual Revenue</label>
+            <div class="input-prefix-wrap">
+              <span class="input-prefix">$</span>
+              <input type="number" id="revenue" placeholder="e.g. 15000000" min="0" step="500000" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="ebitda">Annual Profit (EBITDA) <span style="font-weight:400; color:var(--muted);">— optional</span></label>
+            <span class="field-hint">Leave blank and we'll estimate at 10% of revenue</span>
+            <div class="input-prefix-wrap">
+              <span class="input-prefix">$</span>
+              <input type="number" id="ebitda" placeholder="e.g. 1500000" min="0" step="50000" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="employees">Number of Employees</label>
+            <input type="number" id="employees" placeholder="e.g. 45" min="1" step="1" />
+          </div>
+
+          <div class="field">
+            <label>If you stepped away tomorrow, could your business run without you?</label>
+            <div class="radio-group" id="dependency-group">
+              <label class="radio-option" data-value="yes">
+                <input type="radio" name="dependency" value="yes" />
+                <div>
+                  <div class="radio-label">Yes — processes are documented, team is capable</div>
+                  <div class="radio-desc">The business runs on systems, not just on you</div>
+                </div>
+              </label>
+              <label class="radio-option" data-value="mostly">
+                <input type="radio" name="dependency" value="mostly" />
+                <div>
+                  <div class="radio-label">Mostly — some things would stall</div>
+                  <div class="radio-desc">Key decisions and relationships still run through you</div>
+                </div>
+              </label>
+              <label class="radio-option" data-value="no">
+                <input type="radio" name="dependency" value="no" />
+                <div>
+                  <div class="radio-label">No — I am the business</div>
+                  <div class="radio-desc">Most customer relationships, pricing, and key processes live with me</div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESULTS -->
+        <div class="calc-results" id="results-panel">
+
+          <div class="results-placeholder" id="results-placeholder">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:1rem; opacity:0.3;">
+              <rect x="4" y="28" width="6" height="8" rx="1" fill="currentColor"/>
+              <rect x="13" y="20" width="6" height="16" rx="1" fill="currentColor"/>
+              <rect x="22" y="12" width="6" height="24" rx="1" fill="currentColor"/>
+              <rect x="31" y="4" width="6" height="32" rx="1" fill="currentColor"/>
+            </svg>
+            <p>Enter your revenue and answer the owner-dependency question to see your estimated opportunity.</p>
+          </div>
+
+          <div class="result-card" id="card-waste">
+            <div class="result-label">Estimated Recoverable Waste</div>
+            <div class="result-value" id="val-waste">—</div>
+            <div class="result-desc" id="desc-waste"></div>
+          </div>
+
+          <div class="result-card" id="card-valuation">
+            <div class="result-label">Valuation Gap</div>
+            <div class="result-value" id="val-valuation">—</div>
+            <div class="result-desc" id="desc-valuation"></div>
+          </div>
+
+          <div class="result-card" id="card-admin">
+            <div class="result-label">Admin Hours Recovered / Week</div>
+            <div class="result-value" id="val-admin">—</div>
+            <div class="result-desc" id="desc-admin"></div>
+          </div>
+
+          <div class="total-card" id="card-total">
+            <div class="total-label">Total First-Year Opportunity</div>
+            <div class="total-value" id="val-total">—</div>
+            <div class="total-desc" id="desc-total"></div>
+          </div>
+
+          <p class="disclaimer" id="disclaimer">
+            These are conservative estimates based on what Sentir typically finds in
+            businesses of this size. The $5,000 assessment shows you which of these numbers
+            are real — and exactly what they're worth in your specific business.
+          </p>
+
+          <!-- LEAD CAPTURE -->
+          <div class="lead-capture" id="lead-capture">
+            <h4>Want us to verify these numbers?</h4>
+            <p>Leave your details and Tim will reach out for a no-obligation conversation about what the assessment would look like for your business.</p>
+            <div class="lead-fields">
+              <input type="text" id="lead-name" placeholder="Your name" />
+              <input type="text" id="lead-company" placeholder="Business name" />
+              <input type="email" id="lead-email" class="full" placeholder="Email address" />
+            </div>
+            <button class="btn-primary" id="submit-btn" onclick="submitLead()">Send Me These Results</button>
+            <div class="submit-status" id="submit-status"></div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT HAPPENS NEXT -->
+  <section class="alt">
+    <div class="container">
+      <p class="section-label fade-in">What Happens Next</p>
+      <h2 class="fade-in">The $5,000 assessment.<br /><em>The document that pays for itself.</em></h2>
+      <div class="divider fade-in"></div>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.75rem;" class="three-col fade-in">
+        <div class="card">
+          <div class="card-number">01</div>
+          <h3>We go inside</h3>
+          <p style="font-size:0.93rem; color:var(--muted);">
+            Four to six weeks inside your business — processes, financials, people, systems.
+            Tim leads it personally. We document what we find and verify every number before it
+            goes in the report.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-number">02</div>
+          <h3>You get a document</h3>
+          <p style="font-size:0.93rem; color:var(--muted);">
+            Clean, specific, and designed to hold up in front of your CFO, banker, or a buyer's
+            due diligence team. Not a strategy deck. A working document with real numbers and a clear roadmap.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-number">03</div>
+          <h3>We earn on results</h3>
+          <p style="font-size:0.93rem; color:var(--muted);">
+            If you move forward beyond the assessment, we work on gain-share: 20–25% of verified
+            first-year savings, paid quarterly as savings are realized. We only get paid when you do.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="container">
+      <p class="section-label light fade-in">Skip the Calculator</p>
+      <h2 class="light fade-in">Rather just talk? That works too.</h2>
+      <p class="lead light fade-in" style="margin:1.25rem auto 0;">
+        The first conversation is honest and costs nothing.
+      </p>
+      <br />
+      <a class="btn-primary fade-in" href="mailto:tim@sentir-consulting.com" style="margin-top:1.5rem;">
+        Reach Out Directly
+      </a>
+      <br />
+      <a class="contact-email fade-in" href="mailto:tim@sentir-consulting.com">tim@sentir-consulting.com</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Sentir Consulting &nbsp;·&nbsp; Charlottesville, Virginia &nbsp;·&nbsp;
+      <a href="mailto:tim@sentir-consulting.com">tim@sentir-consulting.com</a>
+    </p>
+  </footer>
+
+  <script>
+    // ── GOOGLE APPS SCRIPT ENDPOINT ──
+    // Replace this URL with your deployed Google Apps Script web app URL
+    // See google-apps-script.gs for the script to deploy
+    const SHEETS_ENDPOINT = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+    // ── UTILITIES ──
+    function fmt(n) {
+      if (n >= 1000000) return '$' + (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+      if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
+      return '$' + Math.round(n).toLocaleString();
+    }
+
+    function fmtRange(lo, hi) {
+      return fmt(lo) + ' – ' + fmt(hi);
+    }
+
+    // ── RADIO OPTION HIGHLIGHTING ──
+    document.querySelectorAll('.radio-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.radio-option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        calculate();
+      });
+    });
+
+    // ── LIVE CALCULATION ──
+    ['revenue', 'ebitda', 'employees'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calculate);
+    });
+
+    // Store last calculated values for lead submission
+    let lastCalc = null;
+
+    function calculate() {
+      const revenue   = parseFloat(document.getElementById('revenue').value) || 0;
+      const ebitdaRaw = parseFloat(document.getElementById('ebitda').value);
+      const employees = parseInt(document.getElementById('employees').value) || 0;
+      const dep       = document.querySelector('input[name="dependency"]:checked')?.value;
+
+      if (!revenue || !dep) {
+        hideResults();
+        return;
+      }
+
+      const ebitda = isNaN(ebitdaRaw) ? revenue * 0.10 : ebitdaRaw;
+
+      // 1. Recoverable waste: 5–8% of revenue
+      const wasteMin = revenue * 0.05;
+      const wasteMax = revenue * 0.08;
+      const wasteMid = (wasteMin + wasteMax) / 2;
+
+      // 2. Valuation gap
+      let currentMult, potentialMult;
+      if (dep === 'no')     { currentMult = 2.0; potentialMult = 4.5; }
+      else if (dep === 'mostly') { currentMult = 2.5; potentialMult = 4.0; }
+      else                  { currentMult = 3.0; potentialMult = 4.5; }
+
+      const currentVal   = ebitda * currentMult;
+      const potentialVal = ebitda * potentialMult;
+      const valuationGap = potentialVal - currentVal;
+
+      // 3. Admin hours recovered (weekly)
+      // Rough: about 12 automatable hours/week per 10 employees, recoverable to ~4
+      const adminHoursTotal = Math.max(4, Math.round((employees / 10) * 12));
+      const adminHoursRecovered = Math.max(2, Math.round((employees / 10) * 8));
+
+      // 4. Total opportunity (first year: waste savings + valuation gap shown as wealth)
+      const totalOpportunity = wasteMid + valuationGap;
+
+      lastCalc = {
+        revenue, ebitda, employees, dep,
+        wasteMin, wasteMax, wasteMid,
+        currentMult, potentialMult, currentVal, potentialVal, valuationGap,
+        adminHoursRecovered,
+        totalOpportunity
+      };
+
+      showResults(lastCalc);
+    }
+
+    function showResults(c) {
+      document.getElementById('results-placeholder').style.display = 'none';
+
+      // Waste
+      show('card-waste');
+      document.getElementById('val-waste').textContent = fmtRange(c.wasteMin, c.wasteMax);
+      document.getElementById('desc-waste').textContent =
+        `Conservative estimate of recoverable operational waste — redundant costs, manual processes, ` +
+        `and spending that doesn't match what the business actually needs. On your revenue, ` +
+        `that's ${fmtRange(c.wasteMin, c.wasteMax)} per year sitting in the business right now.`;
+
+      // Valuation
+      show('card-valuation');
+      document.getElementById('val-valuation').textContent = fmt(c.valuationGap);
+      const depLabel = c.dep === 'no' ? 'owner-dependent (2×)' : c.dep === 'mostly' ? 'partially owner-dependent (2.5×)' : 'relatively systematized (3×)';
+      document.getElementById('desc-valuation').textContent =
+        `At current state your business is ${depLabel} EBITDA. ` +
+        `With documented processes and reduced owner dependency, that moves to ${c.potentialMult}× — ` +
+        `a difference of ${fmt(c.valuationGap)} in family wealth if you sell or transition.`;
+
+      // Admin hours
+      if (c.employees >= 5) {
+        show('card-admin');
+        document.getElementById('val-admin').textContent = c.adminHoursRecovered + ' hrs/wk';
+        document.getElementById('desc-admin').textContent =
+          `Estimated weekly hours of manual administrative work that can be automated or eliminated ` +
+          `without replacing systems or adding staff. That's capacity returned to the people who are already here.`;
+      }
+
+      // Total
+      show('card-total');
+      document.getElementById('val-total').textContent = fmt(c.totalOpportunity);
+      document.getElementById('desc-total').textContent =
+        `Combined first-year opportunity across waste reduction and valuation improvement. ` +
+        `The $5,000 assessment shows you which of these numbers are real in your specific business.`;
+
+      show('disclaimer');
+      show('lead-capture');
+    }
+
+    function hideResults() {
+      document.getElementById('results-placeholder').style.display = 'block';
+      ['card-waste','card-valuation','card-admin','card-total','disclaimer','lead-capture']
+        .forEach(id => document.getElementById(id).classList.remove('visible'));
+    }
+
+    function show(id) {
+      document.getElementById(id).classList.add('visible');
+    }
+
+    // ── LEAD SUBMISSION ──
+    async function submitLead() {
+      const name    = document.getElementById('lead-name').value.trim();
+      const company = document.getElementById('lead-company').value.trim();
+      const email   = document.getElementById('lead-email').value.trim();
+      const status  = document.getElementById('submit-status');
+      const btn     = document.getElementById('submit-btn');
+
+      if (!email) {
+        status.className = 'submit-status error';
+        status.textContent = 'Please enter your email address.';
+        return;
+      }
+
+      if (!lastCalc) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      status.className = 'submit-status';
+      status.style.display = 'none';
+
+      const payload = {
+        name, company, email,
+        revenue:      lastCalc.revenue,
+        employees:    lastCalc.employees,
+        ebitda:       lastCalc.ebitda,
+        dependency:   lastCalc.dep,
+        wasteMin:     Math.round(lastCalc.wasteMin),
+        wasteMax:     Math.round(lastCalc.wasteMax),
+        valuationGap: Math.round(lastCalc.valuationGap),
+        adminHours:   lastCalc.adminHoursRecovered,
+        totalOpp:     Math.round(lastCalc.totalOpportunity)
+      };
+
+      // If no endpoint configured, fall back to mailto
+      if (!SHEETS_ENDPOINT || SHEETS_ENDPOINT === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+        const subject = encodeURIComponent('Sentir Opportunity Calculator — ' + (company || name || email));
+        const body = encodeURIComponent(
+          'Name: ' + name + '\nCompany: ' + company + '\nEmail: ' + email +
+          '\n\nRevenue: $' + lastCalc.revenue.toLocaleString() +
+          '\nEmployees: ' + lastCalc.employees +
+          '\nOwner Dependency: ' + lastCalc.dep +
+          '\n\nWaste Estimate: $' + Math.round(lastCalc.wasteMid).toLocaleString() +
+          '\nValuation Gap: $' + Math.round(lastCalc.valuationGap).toLocaleString() +
+          '\nTotal Opportunity: $' + Math.round(lastCalc.totalOpportunity).toLocaleString()
+        );
+        window.location.href = 'mailto:tim@sentir-consulting.com?subject=' + subject + '&body=' + body;
+        btn.disabled = false;
+        btn.textContent = 'Send Me These Results';
+        return;
+      }
+
+      try {
+        await fetch(SHEETS_ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        status.className = 'submit-status success';
+        status.textContent = "Got it — Tim will be in touch within one business day.";
+        btn.textContent = 'Sent';
+      } catch (err) {
+        status.className = 'submit-status error';
+        status.textContent = 'Something went wrong. Please email tim@sentir-consulting.com directly.';
+        btn.disabled = false;
+        btn.textContent = 'Send Me These Results';
+      }
+    }
+
+    // ── FADE IN ──
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+      { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
+    );
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

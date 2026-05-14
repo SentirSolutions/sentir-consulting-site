@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How We Help — Sentir Consulting</title>
+  <meta name="description" content="Six areas where Sentir creates measurable value for established businesses: knowledge documentation, admin automation, revenue leakage, process standardization, cost waste, and valuation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    .area-grid {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 0;
+      margin-top: 3.5rem;
+    }
+
+    .area-nav {
+      position: sticky;
+      top: calc(var(--nav-h) + 2rem);
+      align-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding-right: 2rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .area-nav a {
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.4rem 0.75rem;
+      border-radius: 2px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .area-nav a:hover { color: var(--accent); background: rgba(181,101,29,0.06); }
+
+    .area-items {
+      padding-left: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 5rem;
+    }
+
+    .area-item {}
+
+    .area-item-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .area-item-num {
+      font-family: 'Fraunces', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--border);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .area-item h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      font-size: 1.5rem;
+      color: var(--dark);
+      line-height: 1.25;
+    }
+
+    .area-item p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+      max-width: 620px;
+    }
+
+    .area-item .highlight {
+      background: var(--bg-alt);
+      border-left: 3px solid var(--accent);
+      padding: 1rem 1.25rem;
+      font-size: 0.93rem;
+      color: var(--text);
+      margin-top: 1.25rem;
+      border-radius: 0 2px 2px 0;
+    }
+
+    .area-item .highlight strong { color: var(--dark); }
+
+    .assessment-banner {
+      background: var(--dark);
+      color: #FFFFFF;
+      padding: 3.5rem 2.5rem;
+      border-radius: 2px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+      margin-top: 5rem;
+    }
+
+    .assessment-banner h3 {
+      color: #FFFFFF;
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .assessment-banner p {
+      color: #9A9690;
+      font-size: 0.95rem;
+      max-width: 480px;
+    }
+
+    @media (max-width: 900px) {
+      .area-grid { grid-template-columns: 1fr; }
+      .area-nav { display: none; }
+      .area-items { padding-left: 0; }
+      .assessment-banner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html"><span class="mark-pipe1">(</span><span class="mark-pipe2">(</span> Sentir Consulting</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="how-we-help.html" class="nav-link active">How We Help</a>
+      <a href="mission.html" class="nav-link">Our Mission</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="opportunity.html" class="nav-link cta">Your Opportunity</a>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <div class="container">
+      <p class="section-label light">How We Help</p>
+      <h1>Six areas. All of them <em>measurable.</em></h1>
+      <p>
+        We don't deliver strategy decks. We find the real problems, document what we find,
+        and show you the before and after — in numbers you can take to your CFO or your banker.
+      </p>
+    </div>
+  </div>
+
+  <section>
+    <div class="container">
+      <div class="area-grid">
+        <div class="area-nav">
+          <a href="#knowledge">01 &nbsp; Knowledge</a>
+          <a href="#automation">02 &nbsp; Automation</a>
+          <a href="#revenue">03 &nbsp; Revenue</a>
+          <a href="#process">04 &nbsp; Process</a>
+          <a href="#waste">05 &nbsp; Cost Waste</a>
+          <a href="#valuation">06 &nbsp; Valuation</a>
+        </div>
+
+        <div class="area-items">
+
+          <div class="area-item fade-in" id="knowledge">
+            <div class="area-item-header">
+              <span class="area-item-num">01</span>
+              <h3>Institutional Knowledge Documentation</h3>
+            </div>
+            <p>
+              The customer relationships are in the owner's phone. The pricing logic is in their head.
+              The vendor dynamics, the exception handling, the twenty years of judgment calls that
+              make the business run — nobody else knows any of it.
+            </p>
+            <p>
+              We capture all of it. Customer relationship maps, pricing frameworks, operational
+              decision trees, supplier agreements and the informal terms that actually govern them.
+              We put it somewhere it can survive the people who currently hold it.
+            </p>
+            <p>
+              This is the foundational work. Everything else — automation, succession, valuation —
+              depends on knowing what the business actually knows. It also happens to be the
+              single highest-leverage thing an owner can do before any kind of transition.
+            </p>
+            <div class="highlight">
+              <strong>What we deliver:</strong> A documented knowledge archive structured for
+              operational handoff — not a filing cabinet, but a working resource the next
+              person in the role can actually use on day one.
+            </div>
+          </div>
+
+          <div class="area-item fade-in" id="automation">
+            <div class="area-item-header">
+              <span class="area-item-num">02</span>
+              <h3>Administrative Task Automation</h3>
+            </div>
+            <p>
+              A $15M company typically has an office manager or operations coordinator spending
+              15–20 hours a week on work that could be 3–4. Manual invoicing. Chasing approvals
+              through email chains. Pulling weekly reports from three different systems by hand.
+              Scheduling and dispatch phone tag. Purchase order routing. Collections follow-up.
+            </p>
+            <p>
+              The automation isn't exotic. In most cases it means connecting the tools the
+              business already owns and stopping the copy-paste. We identify which manual
+              processes are candidates, map the current flow, and design the replacement —
+              then document it so it doesn't depend on one person knowing how it works.
+            </p>
+            <p>
+              The framing matters: this isn't about eliminating roles. It's about returning
+              capacity to the people who already work here. The office manager who spends
+              4 hours a week on reports instead of 14 can do something more valuable with
+              the other 10. That's the conversation we have with your team.
+            </p>
+            <div class="highlight">
+              <strong>Typical result:</strong> 10–15 hours per week of manual administrative work
+              returned to the business within the first 90 days — without adding headcount
+              or replacing systems.
+            </div>
+          </div>
+
+          <div class="area-item fade-in" id="revenue">
+            <div class="area-item-header">
+              <span class="area-item-num">03</span>
+              <h3>Revenue Leakage Identification</h3>
+            </div>
+            <p>
+              Revenue leakage is money already being earned that isn't being fully captured.
+              It's different from waste — it's not that the business is spending wrong,
+              it's that it's not collecting what it's already owed.
+            </p>
+            <p>
+              We look at unbilled time and materials, inconsistent pricing across the team,
+              invoices going out late, discounts being offered without policy, contracts
+              expiring without renewal conversations, and jobs closing without final reconciliation.
+              In businesses this size, these add up fast.
+            </p>
+            <div class="highlight">
+              <strong>Common finding:</strong> Pricing inconsistency — the owner charges one rate,
+              the team charges another, and nobody has noticed because the business is busy.
+              Standardizing it and closing the gap often recovers 2–4% of revenue with no
+              new sales required.
+            </div>
+          </div>
+
+          <div class="area-item fade-in" id="process">
+            <div class="area-item-header">
+              <span class="area-item-num">04</span>
+              <h3>Process Standardization</h3>
+            </div>
+            <p>
+              Right now, the best people do it one way and everyone else improvises. That
+              inconsistency is both a quality risk and an owner-dependency problem. When
+              the best person is out, quality drops. When the owner is unavailable, decisions
+              stall. The business runs on tribal knowledge and availability, not on systems.
+            </p>
+            <p>
+              We document how things actually get done — the real process, not the org chart
+              version — then work with your team to standardize what works and simplify what
+              doesn't. The result is a business where a new hire can get up to speed in days
+              instead of months, and where the work doesn't depend on who happens to be
+              in the room.
+            </p>
+            <div class="highlight">
+              <strong>Why this matters for valuation:</strong> A buyer due diligence team
+              will ask to see documented processes. If the answer is "it lives with our people,"
+              that's a discount — not a premium.
+            </div>
+          </div>
+
+          <div class="area-item fade-in" id="waste">
+            <div class="area-item-header">
+              <span class="area-item-num">05</span>
+              <h3>Operational Cost Waste</h3>
+            </div>
+            <p>
+              Five percent waste is conservative for businesses this size. On a $20M company,
+              that's $1 million sitting in the business right now — in redundant vendor contracts,
+              software subscriptions nobody uses, purchasing without negotiation leverage,
+              staffing patterns that don't match actual demand, and process steps that exist
+              because they always have.
+            </p>
+            <p>
+              We find it, document it, and show you the verified math. We don't recommend
+              cuts without showing the current cost and the alternative. Every finding
+              comes with a number attached.
+            </p>
+            <div class="highlight">
+              <strong>What we deliver:</strong> A prioritized waste register — every identified
+              opportunity with its estimated annual value, confidence level, and what it
+              would take to capture it. No guesses. No round numbers.
+            </div>
+          </div>
+
+          <div class="area-item fade-in" id="valuation">
+            <div class="area-item-header">
+              <span class="area-item-num">06</span>
+              <h3>Valuation and Succession Positioning</h3>
+            </div>
+            <p>
+              A business where the owner is the business sells at 2–3× EBITDA.
+              A business with documented processes, systematized customer relationships,
+              and reduced owner dependency sells at 4–5×. On a $200K–$300K EBITDA business,
+              that difference is $400K–$600K of real family wealth.
+            </p>
+            <p>
+              We show you what your business is worth today — with the numbers to back it up —
+              and what it could be worth in 18 months with the right work in place. The entry
+              conversation isn't "you should sell." It's "let me show you what this is actually
+              worth, and what it could be."
+            </p>
+            <p>
+              For owners approaching a transition, we structure the engagement to produce
+              documentation that holds up in front of a buyer's due diligence team, a
+              banker, or a business broker. The assessment deliverable is designed to
+              be that document.
+            </p>
+            <div class="highlight">
+              <strong>The 18-month case:</strong> Document the processes. Reduce owner dependency.
+              Systematize customer relationships. Present a clean operations picture.
+              The sale decision takes care of itself once the numbers are on the table.
+            </div>
+          </div>
+
+          <!-- Assessment Banner -->
+          <div class="assessment-banner fade-in">
+            <div>
+              <h3>The $5,000 Assessment</h3>
+              <p>
+                Every engagement starts here. Low enough to approve personally — no procurement,
+                no committee. The deliverable looks and feels worth $10,000: clean, specific,
+                and designed to hold up in front of your CFO or banker. That document is
+                Sentir's promise and your roadmap.
+              </p>
+            </div>
+            <div style="flex-shrink:0;">
+              <a href="opportunity.html" class="btn-primary" style="margin-bottom:0.75rem; display:block; text-align:center;">Run the Numbers</a>
+              <a href="mailto:tim@sentir-consulting.com" class="btn-ghost" style="display:block; text-align:center;">Start a Conversation</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Sentir Consulting &nbsp;·&nbsp; Charlottesville, Virginia &nbsp;·&nbsp;
+      <a href="mailto:tim@sentir-consulting.com">tim@sentir-consulting.com</a>
+    </p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+      { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
+    );
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
