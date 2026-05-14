@@ -1,5 +1,5 @@
 /* ============================================================
-   Sentir Consulting — Shared Stylesheet
+   Sentir Solutions — Shared Stylesheet
    ============================================================ */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -59,7 +59,7 @@ nav {
   gap: 0.4rem;
 }
 
-/* || Sentir Consulting wordmark — Forest Green bg: pipe1=white, pipe2=copper */
+/* || Sentir Solutions wordmark — Forest Green bg: pipe1=white, pipe2=copper */
 .mark-pipe1 {
   color: #FFFFFF;
   font-size: 1.2rem;

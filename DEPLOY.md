@@ -1,4 +1,4 @@
-# Publishing sentir-consulting.com — Step by Step
+# Publishing sentir-solutions.com — Step by Step
 
 Total time: about 30 minutes. Cost: $0/month.
 
@@ -15,7 +15,7 @@ Sentir_Consulting/      ← private repo, company docs only
   ...
   website/              ← copy this folder's contents into the public repo below
 
-sentir-consulting-site/ ← public repo, GitHub Pages serves this
+sentir-solutions-site/ ← public repo, GitHub Pages serves this
   index.html
   how-we-help.html
   mission.html
@@ -56,14 +56,14 @@ commented `MailApp.sendEmail` block, uncomment it, fill in your email, and redep
 ### GitHub
 
 1. Go to [github.com](https://github.com) → **+ → New repository**
-2. Name: `sentir-consulting-site`
+2. Name: `sentir-solutions-site`
 3. Visibility: **Public**
 4. Click **Create repository**
 
 ### GitLab (also free, same outcome)
 
 1. Go to [gitlab.com](https://gitlab.com) → **New project → Create blank project**
-2. Name: `sentir-consulting-site` · Visibility: **Public**
+2. Name: `sentir-solutions-site` · Visibility: **Public**
 3. Add a `.gitlab-ci.yml` file (see end of this guide)
 
 ---
@@ -74,15 +74,15 @@ Copy the contents of the `website/` folder into a fresh local folder, then push:
 
 ```bash
 # In a new folder (not inside your private Sentir_Consulting repo)
-mkdir sentir-consulting-site
-cd sentir-consulting-site
+mkdir sentir-solutions-site
+cd sentir-solutions-site
 
 # Copy all files from website/ here, then:
 git init
 git add .
-git commit -m "Launch sentir-consulting.com"
+git commit -m "Launch sentir-solutions.com"
 git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/sentir-consulting-site.git
+git remote add origin https://github.com/YOUR_USERNAME/sentir-solutions-site.git
 git push -u origin main
 ```
 
@@ -93,14 +93,14 @@ git push -u origin main
 
 **Add custom domain:**
 1. Still in Settings → Pages → **Custom domain**
-2. Enter: `sentir-consulting.com`
+2. Enter: `sentir-solutions.com`
 3. Click **Save** · Check **Enforce HTTPS**
 
 ---
 
 ## Part 4 — Point GoDaddy DNS to GitHub Pages (10 min + propagation)
 
-Log into GoDaddy → **My Products → DNS** for `sentir-consulting.com`.
+Log into GoDaddy → **My Products → DNS** for `sentir-solutions.com`.
 
 Delete any existing A records for `@`, then add these four:
 
@@ -123,18 +123,18 @@ Add a CNAME for www:
 
 ## Part 5 — Email forwarding (5 min)
 
-The site links to `tim@sentir-consulting.com`. GoDaddy includes free email forwarding.
+The site links to `tim@sentir-solutions.com`. GoDaddy includes free email forwarding.
 
 1. GoDaddy → **My Products → Email & Office → Add**
 2. Choose **Email Forwarding** (free)
-3. Create: `tim@sentir-consulting.com` → `tim.hislop@gmail.com`
+3. Create: `tim@sentir-solutions.com` → `tim.hislop@gmail.com`
 
 ---
 
 ## Updating the site later
 
 Edit files in the `website/` folder of your private repo, copy changes to your
-`sentir-consulting-site` folder, then:
+`sentir-solutions-site` folder, then:
 
 ```bash
 git add -A

@@ -1,5 +1,5 @@
 /**
- * Sentir Consulting — Google Apps Script Lead Capture
+ * Sentir Solutions — Google Apps Script Lead Capture
  *
  * SETUP INSTRUCTIONS:
  * 1. Open Google Sheets and create a new spreadsheet named "Sentir Leads"
@@ -67,7 +67,7 @@ function doPost(e) {
     // Uncomment the lines below and replace with your email address
     //
     // MailApp.sendEmail({
-    //   to: 'tim@sentir-consulting.com',
+    //   to: 'tim@sentir-solutions.com',
     //   subject: 'New Sentir Lead: ' + (data.company || data.name || data.email),
     //   body: 'A new lead submitted the opportunity calculator.\n\n' +
     //         'Name: ' + data.name + '\n' +
