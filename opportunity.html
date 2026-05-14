@@ -342,7 +342,7 @@
       <h1>See the numbers<br /><em>before the conversation.</em></h1>
       <p>
         Enter a few facts about your business. We'll show you a realistic estimate of
-        the opportunity — waste, valuation gap, and time recovered — based on what
+        the opportunity — hidden profit, valuation upside, and time recovered — based on what
         we typically find in businesses like yours.
       </p>
     </div>
@@ -422,7 +422,7 @@
           </div>
 
           <div class="result-card" id="card-waste">
-            <div class="result-label">Estimated Recoverable Waste</div>
+            <div class="result-label">Hidden Profit Opportunity</div>
             <div class="result-value" id="val-waste">—</div>
             <div class="result-desc" id="desc-waste"></div>
           </div>
@@ -446,7 +446,7 @@
           </div>
 
           <p class="disclaimer" id="disclaimer">
-            These are conservative estimates based on what Sentir typically finds in
+            These are conservative estimates based on what Sentir typically uncovers in
             businesses of this size. The $5,000 assessment shows you which of these numbers
             are real — and exactly what they're worth in your specific business.
           </p>
@@ -616,17 +616,17 @@
       show('card-waste');
       document.getElementById('val-waste').textContent = fmtRange(c.wasteMin, c.wasteMax);
       document.getElementById('desc-waste').textContent =
-        `Conservative estimate of recoverable operational waste — redundant costs, manual processes, ` +
-        `and spending that doesn't match what the business actually needs. On your revenue, ` +
-        `that's ${fmtRange(c.wasteMin, c.wasteMax)} per year sitting in the business right now.`;
+        `Conservative estimate of hidden profit inside your business — vendor contracts due for renegotiation, ` +
+        `manual processes that can be automated, and spending that no longer fits how the business operates. ` +
+        `On your revenue, that's ${fmtRange(c.wasteMin, c.wasteMax)} per year waiting to be unlocked.`;
 
       // Valuation
       show('card-valuation');
       document.getElementById('val-valuation').textContent = fmt(c.valuationGap);
-      const depLabel = c.dep === 'no' ? 'owner-dependent (2×)' : c.dep === 'mostly' ? 'partially owner-dependent (2.5×)' : 'relatively systematized (3×)';
+      const depLabel = c.dep === 'no' ? 'owner-driven (2×)' : c.dep === 'mostly' ? 'owner-driven with some systems (2.5×)' : 'well-systematized (3×)';
       document.getElementById('desc-valuation').textContent =
-        `At current state your business is ${depLabel} EBITDA. ` +
-        `With documented processes and reduced owner dependency, that moves to ${c.potentialMult}× — ` +
+        `At current state your business is valued as ${depLabel} EBITDA. ` +
+        `With documented processes and a leadership team that carries the work forward, that moves to ${c.potentialMult}× — ` +
         `a difference of ${fmt(c.valuationGap)} in family wealth if you sell or transition.`;
 
       // Admin hours
@@ -642,7 +642,7 @@
       show('card-total');
       document.getElementById('val-total').textContent = fmt(c.totalOpportunity);
       document.getElementById('desc-total').textContent =
-        `Combined first-year opportunity across waste reduction and valuation improvement. ` +
+        `Combined first-year opportunity across hidden profit and valuation upside. ` +
         `The $5,000 assessment shows you which of these numbers are real in your specific business.`;
 
       show('disclaimer');
