@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <style>
-    /* ── CALCULATOR LAYOUT ── */
+    /* ── TIER 1: CALCULATOR ── */
     .calc-wrapper {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -18,308 +18,110 @@
       align-items: start;
       margin-top: 3rem;
     }
-
-    /* ── INPUTS ── */
     .calc-inputs {
       background: var(--bg-alt);
       border: 1px solid var(--border);
       border-radius: 2px;
       padding: 2.5rem;
     }
-
     .calc-inputs h3 {
       font-family: 'Fraunces', serif;
       font-size: 1.2rem;
       color: var(--dark);
       margin-bottom: 0.35rem;
     }
-
-    .calc-inputs .hint {
-      font-size: 0.83rem;
-      color: var(--muted);
-      margin-bottom: 2rem;
-    }
-
-    .field {
-      margin-bottom: 1.75rem;
-    }
-
-    .field label {
-      display: block;
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 0.5rem;
-    }
-
-    .field .field-hint {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-      display: block;
-    }
-
+    .calc-inputs .hint { font-size: 0.83rem; color: var(--muted); margin-bottom: 2rem; }
+    .field { margin-bottom: 1.75rem; }
+    .field label { display: block; font-size: 0.88rem; font-weight: 500; color: var(--text); margin-bottom: 0.5rem; }
+    .field .field-hint { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem; display: block; }
     .input-prefix-wrap {
-      display: flex;
-      align-items: center;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      background: var(--bg);
-      overflow: hidden;
-      transition: border-color 0.2s;
+      display: flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 2px;
+      background: var(--bg); overflow: hidden; transition: border-color 0.2s;
     }
-
-    .input-prefix-wrap:focus-within {
-      border-color: var(--accent);
-    }
-
-    .input-prefix {
-      background: var(--border);
-      color: var(--muted);
-      padding: 0.7rem 0.85rem;
-      font-size: 0.9rem;
-      font-weight: 500;
-      flex-shrink: 0;
-    }
-
-    .input-prefix-wrap input {
-      border: none;
-      background: transparent;
-      padding: 0.7rem 0.85rem;
-      font-size: 0.93rem;
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      width: 100%;
-      outline: none;
-    }
-
-    .field input[type="number"],
-    .field input[type="text"],
-    .field input[type="email"] {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      background: var(--bg);
-      padding: 0.7rem 0.85rem;
-      font-size: 0.93rem;
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .field input:focus {
-      border-color: var(--accent);
-    }
-
-    .radio-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .radio-option {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      cursor: pointer;
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      background: var(--bg);
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .radio-option:hover {
-      border-color: var(--accent);
-    }
-
-    .radio-option.selected {
-      border-color: var(--accent);
-      background: rgba(139,108,62,0.05);
-    }
-
-    .radio-option input[type="radio"] {
-      margin-top: 2px;
-      accent-color: var(--accent);
-      flex-shrink: 0;
-    }
-
-    .radio-option .radio-label {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    .radio-option .radio-desc {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-top: 0.2rem;
-    }
-
-    /* ── RESULTS ── */
-    .calc-results {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    .results-placeholder {
-      background: var(--bg-alt);
-      border: 1px dashed var(--border);
-      border-radius: 2px;
-      padding: 3rem 2rem;
-      text-align: center;
-      color: var(--muted);
-    }
-
-    .results-placeholder p {
-      font-size: 0.93rem;
-      line-height: 1.7;
-      margin-top: 0.5rem;
-    }
-
-    .result-card {
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      padding: 1.5rem 1.75rem;
-      border-radius: 2px;
-      display: none;
-    }
-
+    .input-prefix-wrap:focus-within { border-color: var(--accent); }
+    .input-prefix { background: var(--border); color: var(--muted); padding: 0.7rem 0.85rem; font-size: 0.9rem; font-weight: 500; flex-shrink: 0; }
+    .input-prefix-wrap input { border: none; background: transparent; padding: 0.7rem 0.85rem; font-size: 0.93rem; font-family: 'Inter', sans-serif; color: var(--text); width: 100%; outline: none; }
+    .field input[type="number"] { width: 100%; border: 1px solid var(--border); border-radius: 2px; background: var(--bg); padding: 0.7rem 0.85rem; font-size: 0.93rem; font-family: 'Inter', sans-serif; color: var(--text); outline: none; transition: border-color 0.2s; }
+    .field input:focus { border-color: var(--accent); }
+    .radio-group { display: flex; flex-direction: column; gap: 0.6rem; }
+    .radio-option { display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 2px; background: var(--bg); transition: border-color 0.2s, background 0.2s; }
+    .radio-option:hover { border-color: var(--accent); }
+    .radio-option.selected { border-color: var(--accent); background: rgba(139,108,62,0.05); }
+    .radio-option input[type="radio"] { margin-top: 2px; accent-color: var(--accent); flex-shrink: 0; }
+    .radio-option .radio-label { font-size: 0.9rem; font-weight: 500; color: var(--text); }
+    .radio-option .radio-desc { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+    .calc-results { display: flex; flex-direction: column; gap: 1.25rem; }
+    .results-placeholder { background: var(--bg-alt); border: 1px dashed var(--border); border-radius: 2px; padding: 3rem 2rem; text-align: center; color: var(--muted); }
+    .results-placeholder p { font-size: 0.93rem; line-height: 1.7; margin-top: 0.5rem; }
+    .result-card { background: var(--bg-alt); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; border-radius: 2px; display: none; }
     .result-card.visible { display: block; }
-
-    .result-card .result-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-
-    .result-card .result-value {
-      font-family: 'Fraunces', serif;
-      font-size: 2.2rem;
-      font-weight: 400;
-      color: var(--dark);
-      line-height: 1;
-      margin-bottom: 0.4rem;
-    }
-
-    .result-card .result-desc {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    .total-card {
-      background: var(--dark);
-      color: #FFFFFF;
-      border-radius: 2px;
-      padding: 2rem 1.75rem;
-      display: none;
-    }
-
+    .result-card .result-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .result-card .result-value { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 400; color: var(--dark); line-height: 1; margin-bottom: 0.4rem; }
+    .result-card .result-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+    .total-card { background: var(--dark); color: #FFFFFF; border-radius: 2px; padding: 2rem 1.75rem; display: none; }
     .total-card.visible { display: block; }
-
-    .total-card .total-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent-lt);
-      margin-bottom: 0.5rem;
-    }
-
-    .total-card .total-value {
-      font-family: 'Fraunces', serif;
-      font-size: 2.8rem;
-      font-weight: 300;
-      color: #FFFFFF;
-      line-height: 1;
-      margin-bottom: 0.5rem;
-    }
-
-    .total-card .total-desc {
-      font-size: 0.85rem;
-      color: #9A9690;
-      line-height: 1.6;
-    }
-
-    .disclaimer {
-      font-size: 0.78rem;
-      color: var(--muted);
-      line-height: 1.6;
-      border-top: 1px solid var(--border);
-      padding-top: 1rem;
-      display: none;
-    }
-
+    .total-card .total-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent-lt); margin-bottom: 0.5rem; }
+    .total-card .total-value { font-family: 'Fraunces', serif; font-size: 2.8rem; font-weight: 300; color: #FFFFFF; line-height: 1; margin-bottom: 0.5rem; }
+    .total-card .total-desc { font-size: 0.85rem; color: #9A9690; line-height: 1.6; }
+    .disclaimer { font-size: 0.78rem; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 1rem; display: none; }
     .disclaimer.visible { display: block; }
 
-    /* ── LEAD CAPTURE ── */
-    .lead-capture {
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      padding: 2rem;
-      display: none;
-      margin-top: 0.5rem;
-    }
+    /* ── GO DEEPER CTA ── */
+    .go-deeper { background: var(--dark); border-radius: 2px; padding: 1.75rem 2rem; display: none; }
+    .go-deeper.visible { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+    .gd-eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-lt); margin-bottom: 5px; }
+    .gd-headline { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 300; color: #fff; margin-bottom: 4px; }
+    .gd-sub { font-size: 0.82rem; color: rgba(255,255,255,0.5); max-width: 400px; }
 
-    .lead-capture.visible { display: block; }
-
-    .lead-capture h4 {
-      font-family: 'Fraunces', serif;
-      font-size: 1.1rem;
-      color: var(--dark);
-      margin-bottom: 0.35rem;
-    }
-
-    .lead-capture p {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 1.25rem;
-    }
-
-    .lead-fields {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .lead-fields input {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      background: var(--bg);
-      padding: 0.65rem 0.85rem;
-      font-size: 0.88rem;
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .lead-fields input:focus { border-color: var(--accent); }
-
-    .lead-fields .full { grid-column: 1 / -1; }
-
-    .submit-status {
-      font-size: 0.83rem;
-      margin-top: 0.75rem;
-      display: none;
-    }
-
-    .submit-status.success { color: #2D6A4F; display: block; }
-    .submit-status.error { color: #C0392B; display: block; }
+    /* ── TIER 2: TEASER ── */
+    #teaser-section { display: none; background: var(--bg-alt); border-top: 3px solid var(--accent); }
+    .teaser-header { padding: 3rem 0 2rem; }
+    .teaser-header h2 { margin-bottom: 0.5rem; }
+    .teaser-header p { color: var(--muted); max-width: 580px; font-size: 0.93rem; }
+    .teaser-layout { display: grid; grid-template-columns: 1fr 220px; gap: 2rem; align-items: start; padding-bottom: 3rem; }
+    .t-area-group { margin-bottom: 1.75rem; }
+    .t-area-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+    .t-q-card { background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 1rem 1.2rem; margin-bottom: 8px; transition: border-color 0.15s; }
+    .t-q-card.answered { border-color: #C4BAA8; }
+    .t-q-text { font-size: 0.88rem; color: var(--text); line-height: 1.55; margin-bottom: 9px; }
+    .t-rating-row { display: flex; gap: 6px; }
+    .t-r-btn { font-size: 12px; font-weight: 500; font-family: 'Inter', sans-serif; padding: 4px 14px; border-radius: 20px; border: 1px solid var(--border); background: transparent; cursor: pointer; color: var(--muted); transition: all 0.12s; }
+    .t-r-btn:hover { border-color: var(--muted); color: var(--text); }
+    .t-r-btn.sel-solid { background: #EAF3DE; color: #2D6A2D; border-color: #5A9A5A; }
+    .t-r-btn.sel-partial { background: #FFF3D0; color: #7A5000; border-color: #C8960A; }
+    .t-r-btn.sel-gap { background: #FEF0F0; color: #9B1C1C; border-color: #D94040; }
+    .t-sidebar { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 10px; }
+    .t-s-block { background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 1rem 1.1rem; }
+    .t-s-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.75rem; }
+    .t-s-value { font-size: 1.1rem; font-weight: 600; color: var(--dark); }
+    .t-s-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .t-mini-row { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
+    .t-mini-name { font-size: 11px; color: var(--muted); width: 70px; flex-shrink: 0; }
+    .t-mini-bar-wrap { flex: 1; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .t-mini-bar { height: 100%; border-radius: 2px; transition: width 0.3s; }
+    .t-mini-pct { font-size: 10px; color: var(--muted); min-width: 24px; text-align: right; }
+    .teaser-capture { background: var(--dark); border-radius: 2px; padding: 2rem 2.5rem; margin-bottom: 3rem; }
+    .teaser-capture h3 { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 300; color: #fff; margin-bottom: 0.4rem; }
+    .teaser-capture .tc-sub { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; }
+    .t-lead-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .t-lead-grid input { width: 100%; border: 1px solid rgba(255,255,255,0.15); border-radius: 2px; background: rgba(255,255,255,0.08); padding: 0.65rem 0.85rem; font-size: 0.88rem; font-family: 'Inter', sans-serif; color: #fff; outline: none; transition: border-color 0.15s; }
+    .t-lead-grid input::placeholder { color: rgba(255,255,255,0.3); }
+    .t-lead-grid input:focus { border-color: var(--accent-lt); }
+    .t-lead-grid .full { grid-column: 1 / -1; }
+    .t-submit-row { display: flex; align-items: center; gap: 1rem; margin-top: 0.75rem; flex-wrap: wrap; }
+    .t-submit-note { font-size: 12px; color: rgba(255,255,255,0.4); }
+    .resume-block { margin-top: 1.5rem; padding: 1.25rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 2px; display: none; }
+    .resume-block .rb-label { font-size: 11px; color: var(--accent-lt); font-weight: 500; margin-bottom: 6px; }
+    .resume-block .rb-desc { font-size: 12px; color: rgba(255,255,255,0.45); margin-bottom: 8px; line-height: 1.5; }
+    .resume-block .rb-link { font-size: 12px; color: var(--accent-lt); text-decoration: underline; cursor: pointer; word-break: break-all; }
 
     @media (max-width: 900px) {
       .calc-wrapper { grid-template-columns: 1fr; }
-      .lead-fields { grid-template-columns: 1fr; }
+      .teaser-layout { grid-template-columns: 1fr; }
+      .t-sidebar { position: static; }
+      .go-deeper.visible { flex-direction: column; align-items: flex-start; }
+      .t-lead-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -340,24 +142,18 @@
     <div class="container">
       <p class="section-label light">Your Opportunity</p>
       <h1>See the numbers<br /><em>before the conversation.</em></h1>
-      <p>
-        Enter a few facts about your business. We'll show you a realistic estimate of
-        the opportunity — hidden profit, valuation upside, and time recovered — based on what
-        we typically find in businesses like yours.
-      </p>
+      <p>Enter a few facts about your business. We'll show you a realistic estimate of the opportunity — hidden profit, valuation upside, and time recovered — based on what we typically find in businesses like yours.</p>
     </div>
   </div>
 
+  <!-- ══ TIER 1: CALCULATOR ══ -->
   <section>
     <div class="container">
-
       <div class="calc-wrapper">
 
-        <!-- INPUTS -->
         <div class="calc-inputs">
           <h3>About Your Business</h3>
           <p class="hint">All fields are estimates — use round numbers. Results update automatically.</p>
-
           <div class="field">
             <label for="revenue">Annual Revenue</label>
             <div class="input-prefix-wrap">
@@ -365,21 +161,18 @@
               <input type="number" id="revenue" placeholder="e.g. 15000000" min="0" step="500000" />
             </div>
           </div>
-
           <div class="field">
-            <label for="ebitda">Annual Profit (EBITDA) <span style="font-weight:400; color:var(--muted);">— optional</span></label>
+            <label for="ebitda">Annual Profit (EBITDA) <span style="font-weight:400;color:var(--muted)">— optional</span></label>
             <span class="field-hint">Leave blank and we'll estimate at 10% of revenue</span>
             <div class="input-prefix-wrap">
               <span class="input-prefix">$</span>
               <input type="number" id="ebitda" placeholder="e.g. 1500000" min="0" step="50000" />
             </div>
           </div>
-
           <div class="field">
             <label for="employees">Number of Employees</label>
             <input type="number" id="employees" placeholder="e.g. 45" min="1" step="1" />
           </div>
-
           <div class="field">
             <label>If you stepped away tomorrow, could your business run without you?</label>
             <div class="radio-group" id="dependency-group">
@@ -408,11 +201,9 @@
           </div>
         </div>
 
-        <!-- RESULTS -->
         <div class="calc-results" id="results-panel">
-
           <div class="results-placeholder" id="results-placeholder">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:1rem; opacity:0.3;">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style="margin-bottom:1rem;opacity:0.3">
               <rect x="4" y="28" width="6" height="8" rx="1" fill="currentColor"/>
               <rect x="13" y="20" width="6" height="16" rx="1" fill="currentColor"/>
               <rect x="22" y="12" width="6" height="24" rx="1" fill="currentColor"/>
@@ -426,46 +217,86 @@
             <div class="result-value" id="val-waste">—</div>
             <div class="result-desc" id="desc-waste"></div>
           </div>
-
           <div class="result-card" id="card-valuation">
             <div class="result-label">Valuation Gap</div>
             <div class="result-value" id="val-valuation">—</div>
             <div class="result-desc" id="desc-valuation"></div>
           </div>
-
           <div class="result-card" id="card-admin">
             <div class="result-label">Admin Hours Recovered / Week</div>
             <div class="result-value" id="val-admin">—</div>
             <div class="result-desc" id="desc-admin"></div>
           </div>
-
           <div class="total-card" id="card-total">
             <div class="total-label">Total First-Year Opportunity</div>
             <div class="total-value" id="val-total">—</div>
             <div class="total-desc" id="desc-total"></div>
           </div>
-
           <p class="disclaimer" id="disclaimer">
-            These are conservative estimates based on what Sentir typically uncovers in
-            businesses of this size. The $5,000 assessment shows you which of these numbers
-            are real — and exactly what they're worth in your specific business.
+            These are conservative estimates based on what Sentir typically uncovers in businesses of this size. The $5,000 assessment shows you which of these numbers are real — and exactly what they're worth in your specific business.
           </p>
 
-          <!-- LEAD CAPTURE -->
-          <div class="lead-capture" id="lead-capture">
-            <h4>Want us to verify these numbers?</h4>
-            <p>Leave your details and Tim will reach out for a no-obligation conversation about what the assessment would look like for your business.</p>
-            <div class="lead-fields">
-              <input type="text" id="lead-name" placeholder="Your name" />
-              <input type="text" id="lead-company" placeholder="Business name" />
-              <input type="email" id="lead-email" class="full" placeholder="Email address" />
+          <!-- GO DEEPER CTA -->
+          <div class="go-deeper" id="go-deeper">
+            <div>
+              <div class="gd-eyebrow">15 minutes</div>
+              <div class="gd-headline">Want to know where that number lives?</div>
+              <div class="gd-sub">14 questions across 7 areas. We'll show you exactly which parts of your business are holding the most value — and tighten that estimate to your specific situation.</div>
             </div>
-            <button class="btn-primary" id="submit-btn" onclick="submitLead()">Send Me These Results</button>
-            <div class="submit-status" id="submit-status"></div>
+            <button class="btn-primary" onclick="launchTeaser()" style="flex-shrink:0">Go Deeper &rarr;</button>
           </div>
-
         </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ══ TIER 2: TEASER ══ -->
+  <section id="teaser-section">
+    <div class="container">
+      <div class="teaser-header">
+        <p class="section-label">Deeper Dive &nbsp;·&nbsp; 14 Questions</p>
+        <h2>You've seen the number.<br><em>Now let's find out where it lives.</em></h2>
+        <p>Rate each statement. No wrong answers — your first instinct is usually right. The estimates on the right tighten as you go.</p>
+      </div>
+
+      <div class="teaser-layout">
+        <div id="teaserQuestions"></div>
+
+        <div class="t-sidebar">
+          <div class="t-s-block">
+            <div class="t-s-label">Health across 7 areas</div>
+            <div id="teaserMini"></div>
+          </div>
+          <div class="t-s-block">
+            <div class="t-s-label">Refined opportunity</div>
+            <div class="t-s-value" id="teaserOpp">—</div>
+            <div class="t-s-desc">Based on your specific gaps</div>
+          </div>
+          <div class="t-s-block">
+            <div class="t-s-label">Answered</div>
+            <div class="t-s-value" id="teaserProgress">0 / 14</div>
+            <div class="t-s-desc">Complete all 14 for your full picture</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="teaser-capture" id="teaserCapture">
+        <h3>Ready to find out what's actually there?</h3>
+        <p class="tc-sub">Leave your details and Tim will reach out within 48 hours with a specific observation about your highest-opportunity area. We'll also give you a private link to go as deep as you want.</p>
+        <div class="t-lead-grid">
+          <input type="text" id="t-name" placeholder="Your name" />
+          <input type="text" id="t-company" placeholder="Business name" />
+          <input type="email" id="t-email" class="full" placeholder="Email address" />
+        </div>
+        <div class="t-submit-row">
+          <button class="btn-primary" id="t-submit-btn" onclick="submitTeaser()">Send Results to Tim &rarr;</button>
+          <span class="t-submit-note">Sent privately to Tim only</span>
+        </div>
+        <div class="resume-block" id="resumeBlock">
+          <div class="rb-label">Your private assessment link</div>
+          <div class="rb-desc">All your answers are carried forward. Open this anytime to go through the full 6-area assessment — no re-entering anything.</div>
+          <a class="rb-link" id="resumeLink" href="#" target="_blank">Loading your link…</a>
+        </div>
       </div>
     </div>
   </section>
@@ -476,31 +307,21 @@
       <p class="section-label fade-in">What Happens Next</p>
       <h2 class="fade-in">The $5,000 assessment.<br /><em>The document that pays for itself.</em></h2>
       <div class="divider fade-in"></div>
-      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.75rem;" class="three-col fade-in">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem" class="three-col fade-in">
         <div class="card">
           <div class="card-number">01</div>
           <h3>We go inside</h3>
-          <p style="font-size:0.93rem; color:var(--muted);">
-            Four to six weeks inside your business — processes, financials, people, systems.
-            Tim leads it personally. We document what we find and verify every number before it
-            goes in the report.
-          </p>
+          <p style="font-size:0.93rem;color:var(--muted)">Four to six weeks inside your business — processes, financials, people, systems. Tim leads it personally. We document what we find and verify every number before it goes in the report.</p>
         </div>
         <div class="card">
           <div class="card-number">02</div>
           <h3>You get a document</h3>
-          <p style="font-size:0.93rem; color:var(--muted);">
-            Clean, specific, and designed to hold up in front of your CFO, banker, or a buyer's
-            due diligence team. Not a strategy deck. A working document with real numbers and a clear roadmap.
-          </p>
+          <p style="font-size:0.93rem;color:var(--muted)">Clean, specific, and designed to hold up in front of your CFO, banker, or a buyer's due diligence team. Not a strategy deck. A working document with real numbers and a clear roadmap.</p>
         </div>
         <div class="card">
           <div class="card-number">03</div>
           <h3>We earn on results</h3>
-          <p style="font-size:0.93rem; color:var(--muted);">
-            If you move forward beyond the assessment, we work on gain-share: 20–25% of verified
-            first-year savings, paid quarterly as savings are realized. We only get paid when you do.
-          </p>
+          <p style="font-size:0.93rem;color:var(--muted)">If you move forward beyond the assessment, we work on gain-share: 20–25% of verified first-year savings, paid quarterly as savings are realized. We only get paid when you do.</p>
         </div>
       </div>
     </div>
@@ -510,42 +331,31 @@
     <div class="container">
       <p class="section-label light fade-in">Skip the Calculator</p>
       <h2 class="light fade-in">Rather just talk? That works too.</h2>
-      <p class="lead light fade-in" style="margin:1.25rem auto 0;">
-        The first conversation is honest and costs nothing.
-      </p>
+      <p class="lead light fade-in" style="margin:1.25rem auto 0">The first conversation is honest and costs nothing.</p>
       <br />
-      <a class="btn-primary fade-in" href="mailto:tim@sentir-solutions.com" style="margin-top:1.5rem;">
-        Reach Out Directly
-      </a>
+      <a class="btn-primary fade-in" href="mailto:timothy.hislop@sentir-solutions.com" style="margin-top:1.5rem">Reach Out Directly</a>
       <br />
-      <a class="contact-email fade-in" href="mailto:tim@sentir-solutions.com">tim@sentir-solutions.com</a>
+      <a class="contact-email fade-in" href="mailto:timothy.hislop@sentir-solutions.com">timothy.hislop@sentir-solutions.com</a>
     </div>
   </section>
 
   <footer>
     <p>© 2026 Sentir Solutions &nbsp;·&nbsp; Charlottesville, Virginia &nbsp;·&nbsp;
-      <a href="mailto:tim@sentir-solutions.com">tim@sentir-solutions.com</a>
+      <a href="mailto:timothy.hislop@sentir-solutions.com">timothy.hislop@sentir-solutions.com</a>
     </p>
   </footer>
 
   <script>
-    // ── GOOGLE APPS SCRIPT ENDPOINT ──
-    // Replace this URL with your deployed Google Apps Script web app URL
-    // See google-apps-script.gs for the script to deploy
-    const SHEETS_ENDPOINT = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
-
-    // ── UTILITIES ──
+    // ══════════════════════════════════════════
+    //  TIER 1 — CALCULATOR
+    // ══════════════════════════════════════════
     function fmt(n) {
-      if (n >= 1000000) return '$' + (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
-      if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
+      if (n >= 1000000) return '$' + (n/1000000).toFixed(1).replace(/\.0$/,'') + 'M';
+      if (n >= 1000) return '$' + Math.round(n/1000) + 'K';
       return '$' + Math.round(n).toLocaleString();
     }
+    function fmtRange(lo, hi) { return fmt(lo) + ' – ' + fmt(hi); }
 
-    function fmtRange(lo, hi) {
-      return fmt(lo) + ' – ' + fmt(hi);
-    }
-
-    // ── RADIO OPTION HIGHLIGHTING ──
     document.querySelectorAll('.radio-option').forEach(opt => {
       opt.addEventListener('click', () => {
         document.querySelectorAll('.radio-option').forEach(o => o.classList.remove('selected'));
@@ -553,13 +363,10 @@
         calculate();
       });
     });
-
-    // ── LIVE CALCULATION ──
-    ['revenue', 'ebitda', 'employees'].forEach(id => {
+    ['revenue','ebitda','employees'].forEach(id => {
       document.getElementById(id).addEventListener('input', calculate);
     });
 
-    // Store last calculated values for lead submission
     let lastCalc = null;
 
     function calculate() {
@@ -567,167 +374,237 @@
       const ebitdaRaw = parseFloat(document.getElementById('ebitda').value);
       const employees = parseInt(document.getElementById('employees').value) || 0;
       const dep       = document.querySelector('input[name="dependency"]:checked')?.value;
-
-      if (!revenue || !dep) {
-        hideResults();
-        return;
-      }
-
+      if (!revenue || !dep) { hideResults(); return; }
       const ebitda = isNaN(ebitdaRaw) ? revenue * 0.10 : ebitdaRaw;
-
-      // 1. Recoverable waste: 5–8% of revenue
-      const wasteMin = revenue * 0.05;
-      const wasteMax = revenue * 0.08;
-      const wasteMid = (wasteMin + wasteMax) / 2;
-
-      // 2. Valuation gap
+      const wasteMin = revenue * 0.05, wasteMax = revenue * 0.08, wasteMid = (wasteMin+wasteMax)/2;
       let currentMult, potentialMult;
-      if (dep === 'no')     { currentMult = 2.0; potentialMult = 4.5; }
-      else if (dep === 'mostly') { currentMult = 2.5; potentialMult = 4.0; }
-      else                  { currentMult = 3.0; potentialMult = 4.5; }
-
-      const currentVal   = ebitda * currentMult;
-      const potentialVal = ebitda * potentialMult;
-      const valuationGap = potentialVal - currentVal;
-
-      // 3. Admin hours recovered (weekly)
-      // Rough: about 12 automatable hours/week per 10 employees, recoverable to ~4
-      const adminHoursTotal = Math.max(4, Math.round((employees / 10) * 12));
-      const adminHoursRecovered = Math.max(2, Math.round((employees / 10) * 8));
-
-      // 4. Total opportunity (first year: waste savings + valuation gap shown as wealth)
-      const totalOpportunity = wasteMid + valuationGap;
-
-      lastCalc = {
-        revenue, ebitda, employees, dep,
-        wasteMin, wasteMax, wasteMid,
-        currentMult, potentialMult, currentVal, potentialVal, valuationGap,
-        adminHoursRecovered,
-        totalOpportunity
-      };
-
+      if (dep==='no') { currentMult=2.0; potentialMult=4.5; }
+      else if (dep==='mostly') { currentMult=2.5; potentialMult=4.0; }
+      else { currentMult=3.0; potentialMult=4.5; }
+      const valuationGap = (ebitda*potentialMult) - (ebitda*currentMult);
+      const adminHoursRecovered = Math.max(2, Math.round((employees/10)*8));
+      lastCalc = { revenue, ebitda, employees, dep, wasteMin, wasteMax, wasteMid, currentMult, potentialMult, valuationGap, adminHoursRecovered, totalOpportunity: wasteMid+valuationGap };
       showResults(lastCalc);
     }
 
     function showResults(c) {
       document.getElementById('results-placeholder').style.display = 'none';
-
-      // Waste
       show('card-waste');
       document.getElementById('val-waste').textContent = fmtRange(c.wasteMin, c.wasteMax);
-      document.getElementById('desc-waste').textContent =
-        `Conservative estimate of hidden profit inside your business — vendor contracts due for renegotiation, ` +
-        `manual processes that can be automated, and spending that no longer fits how the business operates. ` +
-        `On your revenue, that's ${fmtRange(c.wasteMin, c.wasteMax)} per year waiting to be unlocked.`;
-
-      // Valuation
+      document.getElementById('desc-waste').textContent = `Conservative estimate of hidden profit — vendor contracts, manual processes, and spending that no longer fits. On your revenue, that's ${fmtRange(c.wasteMin,c.wasteMax)} per year waiting to be unlocked.`;
       show('card-valuation');
       document.getElementById('val-valuation').textContent = fmt(c.valuationGap);
-      const depLabel = c.dep === 'no' ? 'owner-driven (2×)' : c.dep === 'mostly' ? 'owner-driven with some systems (2.5×)' : 'well-systematized (3×)';
-      document.getElementById('desc-valuation').textContent =
-        `At current state your business is valued as ${depLabel} EBITDA. ` +
-        `With documented processes and a leadership team that carries the work forward, that moves to ${c.potentialMult}× — ` +
-        `a difference of ${fmt(c.valuationGap)} in family wealth if you sell or transition.`;
-
-      // Admin hours
+      document.getElementById('desc-valuation').textContent = `At current state your business sells at ${c.currentMult}× EBITDA. With documented processes and a capable leadership team, that moves to ${c.potentialMult}× — a difference of ${fmt(c.valuationGap)} in family wealth.`;
       if (c.employees >= 5) {
         show('card-admin');
         document.getElementById('val-admin').textContent = c.adminHoursRecovered + ' hrs/wk';
-        document.getElementById('desc-admin').textContent =
-          `Estimated weekly hours of manual administrative work that can be automated or eliminated ` +
-          `without replacing systems or adding staff. That's capacity returned to the people who are already here.`;
+        document.getElementById('desc-admin').textContent = `Estimated weekly hours of manual administrative work that can be automated or eliminated without replacing systems or adding staff.`;
       }
-
-      // Total
       show('card-total');
       document.getElementById('val-total').textContent = fmt(c.totalOpportunity);
-      document.getElementById('desc-total').textContent =
-        `Combined first-year opportunity across hidden profit and valuation upside. ` +
-        `The $5,000 assessment shows you which of these numbers are real in your specific business.`;
-
+      document.getElementById('desc-total').textContent = `Combined first-year opportunity across hidden profit and valuation upside. The $5,000 assessment shows you which of these numbers are real in your specific business.`;
       show('disclaimer');
-      show('lead-capture');
+      show('go-deeper');
     }
 
     function hideResults() {
       document.getElementById('results-placeholder').style.display = 'block';
-      ['card-waste','card-valuation','card-admin','card-total','disclaimer','lead-capture']
-        .forEach(id => document.getElementById(id).classList.remove('visible'));
+      ['card-waste','card-valuation','card-admin','card-total','disclaimer','go-deeper'].forEach(id => {
+                const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
     }
 
     function show(id) {
-      document.getElementById(id).classList.add('visible');
+      const el = document.getElementById(id);
+      if (el) el.classList.add('visible');
     }
 
-    // ── LEAD SUBMISSION ──
-    async function submitLead() {
-      const name    = document.getElementById('lead-name').value.trim();
-      const company = document.getElementById('lead-company').value.trim();
-      const email   = document.getElementById('lead-email').value.trim();
-      const status  = document.getElementById('submit-status');
-      const btn     = document.getElementById('submit-btn');
+    // ══════════════════════════════════════════
+    //  TIER 2 — TEASER
+    // ══════════════════════════════════════════
+    const TEASER_QS = [
+      { area:0, aIdx:0, qIdx:0, areaName:'Knowledge & Documentation',
+        text:'If your top two people were unavailable for 30 days, the team could handle all customer relationships without them.',
+        impact:[0.025,0.012,0] },
+      { area:0, aIdx:0, qIdx:1, areaName:null,
+        text:'Customer pricing, terms, and special arrangements are documented and accessible to more than one person.',
+        impact:[0.015,0.007,0] },
+      { area:1, aIdx:1, qIdx:1, areaName:'Admin & Automation',
+        text:'We know in real time which jobs, clients, or services are most and least profitable.',
+        impact:[0.015,0.007,0] },
+      { area:1, aIdx:1, qIdx:4, areaName:null,
+        text:"Our core business tools share data — information doesn't need to be entered more than once.",
+        impact:[0.010,0.005,0] },
+      { area:2, aIdx:2, qIdx:0, areaName:'Revenue Leakage',
+        text:'Every quote or proposal receives a follow-up within 72 hours — without the owner making it happen.',
+        impact:[0.020,0.010,0] },
+      { area:2, aIdx:2, qIdx:3, areaName:null,
+        text:'We know our customer retention rate and have an active plan to improve it.',
+        impact:[0.025,0.012,0] },
+      { area:3, aIdx:3, qIdx:0, areaName:'Process Standardization',
+        text:'The same job or service is executed consistently, regardless of who performs it.',
+        impact:[0.015,0.007,0] },
+      { area:3, aIdx:3, qIdx:1, areaName:null,
+        text:'Our core revenue-generating processes are documented in a format anyone on the team could follow.',
+        impact:[0.012,0.006,0] },
+      { area:4, aIdx:4, qIdx:0, areaName:'Hidden Costs & Profit',
+        text:'Major vendor contracts have been reviewed and renegotiated within the last 24 months.',
+        impact:[0.020,0.010,0] },
+      { area:4, aIdx:4, qIdx:2, areaName:null,
+        text:'We know exactly which products, services, or customer types generate the highest and lowest margin.',
+        impact:[0.015,0.007,0] },
+      { area:5, aIdx:5, qIdx:0, areaName:'Valuation Readiness',
+        text:'The business could operate at full capacity for 90 days without the owner present.',
+        eMultiple:[0,1.5,3.0] },
+      { area:5, aIdx:5, qIdx:1, areaName:null,
+        text:'No single customer accounts for more than 15% of annual revenue.',
+        eMultiple:[0,0.5,1.0] },
+      { area:6, aIdx:6, qIdx:0, areaName:'Infrastructure & Efficiency',
+        text:'Our production or operational equipment rarely causes unplanned downtime that disrupts delivery to customers.',
+        impact:[0.015,0.007,0] },
+      { area:6, aIdx:6, qIdx:2, areaName:null,
+        text:'We understand our material waste, rework, or spoilage rate — and it is under active management.',
+        impact:[0.020,0.010,0] },
+    ];
 
-      if (!email) {
-        status.className = 'submit-status error';
-        status.textContent = 'Please enter your email address.';
-        return;
-      }
+    const teaserRatings = {};
 
-      if (!lastCalc) return;
+    function launchTeaser() {
+      const ts = document.getElementById('teaser-section');
+      ts.style.display = 'block';
+      buildTeaserQuestions();
+      updateTeaserSidebar();
+      ts.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 
-      btn.disabled = true;
-      btn.textContent = 'Sending…';
-      status.className = 'submit-status';
-      status.style.display = 'none';
+    function buildTeaserQuestions() {
+      const col = document.getElementById('teaserQuestions');
+      let html = '', currentArea = -1;
+      TEASER_QS.forEach((q, i) => {
+        if (q.area !== currentArea) {
+          if (currentArea !== -1) html += '</div>';
+          html += `<div class="t-area-group"><div class="t-area-label">0${q.area+1} &nbsp;·&nbsp; ${q.areaName}</div>`;
+          currentArea = q.area;
+        }
+        html += `<div class="t-q-card" id="tq-${i}">
+          <div class="t-q-text">${q.text}</div>
+          <div class="t-rating-row">
+            <button class="t-r-btn" onclick="tRate(${i},2,this)">Solid</button>
+            <button class="t-r-btn" onclick="tRate(${i},1,this)">Partial</button>
+            <button class="t-r-btn" onclick="tRate(${i},0,this)">Gap</button>
+          </div>
+        </div>`;
+      });
+      if (currentArea !== -1) html += '</div>';
+      col.innerHTML = html;
+    }
 
-      const payload = {
+    function tRate(i, val, btn) {
+      teaserRatings[i] = val;
+      document.getElementById('tq-'+i).classList.add('answered');
+      btn.parentElement.querySelectorAll('.t-r-btn').forEach(b => b.className = 't-r-btn');
+      btn.classList.add(val===2?'sel-solid':val===1?'sel-partial':'sel-gap');
+      updateTeaserSidebar();
+    }
+
+    function updateTeaserSidebar() {
+      const areaNames = ['Knowledge','Automation','Revenue','Process','Profit','Valuation','Infrastructure'];
+      const mini = document.getElementById('teaserMini');
+      mini.innerHTML = areaNames.map((name, a) => {
+        const idxs = TEASER_QS.map((q,i) => q.area===a ? i : -1).filter(i => i>=0);
+        const vals = idxs.map(i => teaserRatings[i]).filter(v => v !== undefined);
+        const pct = vals.length ? Math.round((vals.reduce((a,b)=>a+b,0)/(vals.length*2))*100) : 0;
+        const col = pct>=66 ? '#2D6A2D' : pct>=33 ? '#B5651D' : '#9B1C1C';
+        return `<div class="t-mini-row">
+          <span style="font-size:11px;color:var(--muted);width:80px;flex-shrink:0">${name}</span>
+          <div style="flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden">
+            <div style="width:${pct}%;height:100%;background:${col};border-radius:2px"></div>
+          </div>
+          <span style="font-size:10px;color:var(--muted);min-width:24px;text-align:right">${vals.length ? pct+'%' : '—'}</span>
+        </div>`;
+      }).join('');
+
+      const rev = lastCalc ? lastCalc.revenue : 0;
+      const eb  = lastCalc ? lastCalc.ebitda  : rev*0.10;
+      let lo=0, hi=0;
+      TEASER_QS.forEach((q,i) => {
+        const v = teaserRatings[i];
+        if (v !== undefined) {
+          if (q.impact)    { lo += q.impact[2-v]*rev*0.75;    hi += q.impact[2-v]*rev*1.25; }
+          if (q.eMultiple) { lo += q.eMultiple[2-v]*eb*0.8;   hi += q.eMultiple[2-v]*eb*1.3; }
+        }
+      });
+      document.getElementById('teaserOpp').textContent = lo>0 ? fmt(Math.round(lo))+' – '+fmt(Math.round(hi)) : '—';
+
+      const answered = Object.keys(teaserRatings).length;
+      document.getElementById('teaserProgress').textContent = answered + ' / 14';
+    }
+
+    function submitTeaser() {
+      const name    = document.getElementById('t-name').value.trim();
+      const company = document.getElementById('t-company').value.trim();
+      const email   = document.getElementById('t-email').value.trim();
+      if (!email) { alert('Please enter your email address.'); return; }
+
+      // Build full-assessment ratings map
+      const fullRatings = {};
+      TEASER_QS.forEach((q,i) => {
+        if (teaserRatings[i] !== undefined) fullRatings[`a${q.aIdx}q${q.qIdx}`] = teaserRatings[i];
+      });
+
+      const depMap = { no:'high', mostly:'med', yes:'low' };
+      const resumeData = {
+        rev: lastCalc ? lastCalc.revenue : 0,
+        eb:  lastCalc ? Math.round(lastCalc.ebitda) : 0,
+        emp: lastCalc ? lastCalc.employees : 0,
+        dep: lastCalc ? (depMap[lastCalc.dep]||lastCalc.dep) : '',
         name, company, email,
-        revenue:      lastCalc.revenue,
-        employees:    lastCalc.employees,
-        ebitda:       lastCalc.ebitda,
-        dependency:   lastCalc.dep,
-        wasteMin:     Math.round(lastCalc.wasteMin),
-        wasteMax:     Math.round(lastCalc.wasteMax),
-        valuationGap: Math.round(lastCalc.valuationGap),
-        adminHours:   lastCalc.adminHoursRecovered,
-        totalOpp:     Math.round(lastCalc.totalOpportunity)
+        r: fullRatings
       };
 
-      // If no endpoint configured, fall back to mailto
-      if (!SHEETS_ENDPOINT || SHEETS_ENDPOINT === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-        const subject = encodeURIComponent('Sentir Opportunity Calculator — ' + (company || name || email));
-        const body = encodeURIComponent(
-          'Name: ' + name + '\nCompany: ' + company + '\nEmail: ' + email +
-          '\n\nRevenue: $' + lastCalc.revenue.toLocaleString() +
-          '\nEmployees: ' + lastCalc.employees +
-          '\nOwner Dependency: ' + lastCalc.dep +
-          '\n\nWaste Estimate: $' + Math.round(lastCalc.wasteMid).toLocaleString() +
-          '\nValuation Gap: $' + Math.round(lastCalc.valuationGap).toLocaleString() +
-          '\nTotal Opportunity: $' + Math.round(lastCalc.totalOpportunity).toLocaleString()
-        );
-        window.location.href = 'mailto:tim@sentir-solutions.com?subject=' + subject + '&body=' + body;
-        btn.disabled = false;
-        btn.textContent = 'Send Me These Results';
-        return;
-      }
+      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(resumeData))));
+      const resumeURL = window.location.origin + window.location.pathname.replace('opportunity.html','') + 'assessment.html?d=' + encoded;
 
-      try {
-        await fetch(SHEETS_ENDPOINT, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
+      document.getElementById('resumeLink').textContent = resumeURL;
+      document.getElementById('resumeLink').href = resumeURL;
+      document.getElementById('resumeBlock').style.display = 'block';
 
-        status.className = 'submit-status success';
-        status.textContent = "Got it — Tim will be in touch within one business day.";
-        btn.textContent = 'Sent';
-      } catch (err) {
-        status.className = 'submit-status error';
-        status.textContent = 'Something went wrong. Please email tim@sentir-solutions.com directly.';
-        btn.disabled = false;
-        btn.textContent = 'Send Me These Results';
-      }
+      const btn = document.getElementById('t-submit-btn');
+      btn.textContent = 'Sent ✓';
+      btn.disabled = true;
+
+      // Build results summary for email
+      const rev_str = lastCalc ? '$'+(lastCalc.revenue/1000000).toFixed(1)+'M' : 'unknown';
+      let ratings_summary = '';
+      TEASER_QS.forEach((q,i) => {
+        const v = teaserRatings[i];
+        const lbl = v===2?'SOLID':v===1?'PARTIAL':v===0?'GAP':'—';
+        if (q.areaName) ratings_summary += '\n--- ' + q.areaName + ' ---\n';
+        ratings_summary += '[' + lbl + '] ' + q.text.substring(0,80) + '\n';
+      });
+
+      const subject = 'Sentir Teaser — ' + (company || name || email);
+
+      // Send via FormSubmit (no email client required)
+      fetch('https://formsubmit.co/ajax/timothy.hislop@sentir-solutions.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          _subject: subject,
+          _captcha: 'false',
+          Name: name,
+          Company: company || '—',
+          Email: email,
+          Revenue: rev_str,
+          Ratings: ratings_summary,
+          Resumption_Link: resumeURL
+        })
+      }).catch(() => {
+        // Fallback if FormSubmit unreachable
+        const fallback = 'Sentir Teaser — ' + name + ' / ' + company + '\nRevenue: ' + rev_str + ratings_summary + '\nResumption link:\n' + resumeURL;
+        window.open('mailto:timothy.hislop@sentir-solutions.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(fallback));
+      });
     }
 
     // ── FADE IN ──
@@ -737,6 +614,5 @@
     );
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   </script>
-
 </body>
 </html>

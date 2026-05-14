@@ -67,7 +67,7 @@ function doPost(e) {
     // Uncomment the lines below and replace with your email address
     //
     // MailApp.sendEmail({
-    //   to: 'tim@sentir-solutions.com',
+    //   to: 'timothy.hislop@sentir-solutions.com',
     //   subject: 'New Sentir Lead: ' + (data.company || data.name || data.email),
     //   body: 'A new lead submitted the opportunity calculator.\n\n' +
     //         'Name: ' + data.name + '\n' +

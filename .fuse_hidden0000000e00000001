@@ -399,4 +399,66 @@
   </script>
 
 </body>
+</html>approach is rarely calculated:
+              unplanned downtime, emergency repair premiums, and the revenue that doesn't get delivered
+              while the press is down, the truck is in the shop, or the line is idle.
+            </p>
+            <p>
+              There's a second cost that's even easier to miss: production waste. Misalignment in a
+              print run. Material spoilage in food production. Rework in fabrication. Every business
+              that touches physical goods has a waste rate. Few have measured it with enough precision
+              to manage it. The businesses that have — even reducing it by two or three points — find
+              that the savings go straight to the bottom line.
+            </p>
+            <p>
+              We also look at the capital investment picture in the context of where the owner is in
+              their journey. A major equipment purchase is a 15-year decision. That decision looks
+              very different if you're planning to transition the business in five. We help owners
+              see the full picture before committing — and help them build the asset profile that
+              a buyer sees as a strength rather than a question mark.
+            </p>
+            <div class="highlight">
+              <strong>What we find:</strong> Equipment reliability risk, quantified downtime costs,
+              material waste rates with dollar values attached, and a capital investment timeline
+              aligned with the owner's actual horizon — not just the next invoice cycle.
+            </div>
+          </div>
+
+          <!-- Assessment Banner -->
+          <div class="assessment-banner fade-in">
+            <div>
+              <h3>The $5,000 Assessment</h3>
+              <p>
+                Every engagement starts here. Low enough to approve personally — no procurement,
+                no committee. The deliverable looks and feels worth $10,000: clean, specific,
+                and designed to hold up in front of your CFO or banker. That document is
+                Sentir's promise and your roadmap.
+              </p>
+            </div>
+            <div style="flex-shrink:0;">
+              <a href="opportunity.html" class="btn-primary" style="margin-bottom:0.75rem; display:block; text-align:center;">Run the Numbers</a>
+              <a href="mailto:timothy.hislop@sentir-solutions.com" class="btn-ghost" style="display:block; text-align:center;">Start a Conversation</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Sentir Solutions &nbsp;·&nbsp; Charlottesville, Virginia &nbsp;·&nbsp;
+      <a href="mailto:timothy.hislop@sentir-solutions.com">timothy.hislop@sentir-solutions.com</a>
+    </p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+      { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
+    );
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
 </html>

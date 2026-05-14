@@ -490,6 +490,60 @@
     .print-note { font-size: 11px; color: var(--muted); margin-top: 0.75rem; }
 
     /* ── RESPONSIVE ── */
+    /* ── LOCK SCREEN ── */
+    #lock-screen {
+      display: none;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      background: var(--dark);
+      padding: 2rem;
+    }
+    .lock-inner {
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+    .lock-logo {
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      color: var(--accent-lt);
+      margin-bottom: 2.5rem;
+    }
+    .lock-icon {
+      width: 48px;
+      height: 48px;
+      border: 2px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      color: rgba(255,255,255,0.3);
+    }
+    .lock-inner h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+    .lock-inner p {
+      color: rgba(255,255,255,0.45);
+      font-size: 0.88rem;
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+    }
+    .lock-contact {
+      color: var(--accent-lt);
+      font-size: 0.85rem;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(212,135,74,0.3);
+      padding-bottom: 1px;
+    }
+    .lock-contact:hover { border-bottom-color: var(--accent-lt); }
+
     @media (max-width: 720px) {
       .a-layout { grid-template-columns: 1fr; }
       .s-col { position: static; }
@@ -503,6 +557,22 @@
 <body>
 
 <!-- NAV -->
+<!-- LOCK SCREEN -->
+<div id="lock-screen">
+  <div class="lock-inner">
+    <div class="lock-logo">(( Sentir Solutions</div>
+    <div class="lock-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="3" y="11" width="18" height="11" rx="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+    </div>
+    <h2>Private assessment</h2>
+    <p>This assessment is by invitation only. If Tim sent you a private link, please use that link directly. Links are specific to each client and cannot be shared.</p>
+    <a class="lock-contact" href="mailto:timothy.hislop@sentir-solutions.com">Questions? timothy.hislop@sentir-solutions.com</a>
+  </div>
+</div>
+
 <nav class="tool-nav">
   <span class="nav-logo"><span class="acc">((</span> Sentir Solutions</span>
   <div class="step-trail">
@@ -531,7 +601,7 @@
         </div>
         <div>
           <div class="meta-label">Sections</div>
-          <div class="meta-value">6 areas + business overview</div>
+          <div class="meta-value">7 areas + business overview</div>
         </div>
         <div>
           <div class="meta-label">Who sees this</div>
@@ -650,7 +720,7 @@
 <div class="screen" id="screen-assessment">
   <div class="assessment-wrap">
     <div class="assessment-header">
-      <p class="eyebrow">Health Assessment &nbsp;·&nbsp; Six Areas</p>
+      <p class="eyebrow">Health Assessment &nbsp;·&nbsp; Seven Areas</p>
       <h2>Rate each statement. Watch your numbers update.</h2>
     </div>
 
@@ -661,6 +731,7 @@
       <button class="a-tab" onclick="switchArea(3)"><span class="tab-num">04</span>Process<span class="tab-pip" id="tp3"></span></button>
       <button class="a-tab" onclick="switchArea(4)"><span class="tab-num">05</span>Profit<span class="tab-pip" id="tp4"></span></button>
       <button class="a-tab" onclick="switchArea(5)"><span class="tab-num">06</span>Valuation<span class="tab-pip" id="tp5"></span></button>
+      <button class="a-tab" onclick="switchArea(6)"><span class="tab-num">07</span>Infrastructure<span class="tab-pip" id="tp6"></span></button>
     </div>
 
     <div class="a-layout">
@@ -715,13 +786,13 @@
   <div class="summary-wrap">
     <p class="eyebrow">Your Results</p>
     <h2>Business health scorecard</h2>
-    <p class="summary-sub">Here is where your business stands across all six areas, based on your responses.</p>
+    <p class="summary-sub">Here is where your business stands across all seven areas, based on your responses.</p>
 
     <div class="summary-stats">
       <div class="sum-stat">
         <div class="ss-label">Annual opportunity</div>
         <div class="ss-value" id="sumOpp">—</div>
-        <div class="ss-sub">Conservative estimate across 5 areas</div>
+        <div class="ss-sub">Conservative estimate across 6 areas</div>
       </div>
       <div class="sum-stat">
         <div class="ss-label">Valuation gap</div>
@@ -751,7 +822,7 @@
 
     <div class="submit-row">
       <button class="btn-primary" onclick="submitResults()">Send results to Tim &rarr;</button>
-      <span class="submit-note">Sent privately to tim.hislop@gmail.com</span>
+      <span class="submit-note">Sent privately to timothy.hislop@sentir-solutions.com</span>
     </div>
     <p class="print-note">You can also print or save this page for your own records.</p>
   </div>
@@ -948,6 +1019,39 @@ const AREAS = [
       {
         text: 'We have a clear, documented picture of what makes this business worth acquiring.',
         eMultiple: [0, 0.25, 0.5]
+      }
+    ]
+  },
+  {
+    id: 6, name: 'Infrastructure',
+    fullName: 'Infrastructure & Operational Efficiency',
+    intro: 'Rate the reliability, condition, and cost discipline of your physical operations and equipment.',
+    oppLabel: 'Efficiency & downtime savings',
+    oppDesc: 'Estimated annual cost of equipment risk, unplanned downtime, and production waste',
+    questions: [
+      {
+        text: 'Our production or operational equipment is current, well-maintained, and unlikely to cause unplanned downtime in the next 12 months.',
+        hint: 'Consider equipment age, maintenance history, and any known reliability risks.',
+        impact: [0.015, 0.007, 0]
+      },
+      {
+        text: 'We understand and actively track the cost of unplanned equipment downtime — lost production, emergency repairs, and missed customer commitments.',
+        hint: 'Knowing the number is the first step to addressing it.',
+        impact: [0.012, 0.006, 0]
+      },
+      {
+        text: 'Our material waste, rework, or spoilage rate is measured, understood, and actively managed.',
+        hint: 'In any production environment — print, manufacturing, fabrication, food service — this is a direct margin drag.',
+        impact: [0.020, 0.010, 0]
+      },
+      {
+        text: 'Major capital investments — equipment, vehicles, facilities — are planned with our ownership timeline in mind.',
+        hint: 'A 15-year asset decision should account for when and how you plan to transition the business.',
+        impact: [0.010, 0.005, 0]
+      },
+      {
+        text: 'Key equipment and infrastructure has a documented maintenance schedule and a proactive replacement plan — not just reactive repairs.',
+        impact: [0.008, 0.004, 0]
       }
     ]
   }
@@ -1229,14 +1333,91 @@ function submitResults() {
   body += `\n${'='.repeat(40)}\nGenerated by Sentir Business Health Assessment\n`;
 
   const rev_label = document.getElementById('g-revenue').value ? ('$'+(parseInt(document.getElementById('g-revenue').value)/1000000).toFixed(1)+'M') : 'Business';
-  const subj = encodeURIComponent(`Sentir Assessment — ${rev_label} ${ind !== 'not specified' ? '· '+ind : ''}`);
-  window.location.href = `mailto:tim.hislop@gmail.com?subject=${subj}&body=${encodeURIComponent(body)}`;
+  const subject = `Sentir Assessment — ${rev_label}${ind !== 'not specified' ? ' · '+ind : ''}`;
+
+  fetch('https://formsubmit.co/ajax/timothy.hislop@sentir-solutions.com', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      _subject: subject,
+      _captcha: 'false',
+      Assessment_Results: body
+    })
+  }).then(() => {
+    const btn = document.querySelector('.submit-row .btn-primary');
+    if (btn) { btn.textContent = 'Sent ✓'; btn.disabled = true; }
+  }).catch(() => {
+    // Fallback to mailto
+    window.open('mailto:timothy.hislop@sentir-solutions.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body));
+  });
+}
+
+// ══════════════════════════════════════════════
+//  ACCESS CONTROL
+//  ─────────────────────────────────────────────
+//  To give someone access:
+//  1. Add a new line below: 'SN-XXX-XXXX': 'Name'
+//  2. Send them: assessment.html?token=SN-XXX-XXXX
+//  3. To carry over their teaser data too:
+//     assessment.html?token=SN-XXX-XXXX&d=THEIRBASE64
+//     (copy the ?d= value from the teaser email)
+//  ─────────────────────────────────────────────
+const VALID_TOKENS = {
+  'SN-TIM-K7X2':  'Tim',
+  'SN-JSS-P4R9':  'Jessie',
+  'SN-TJH-M8Q3':  'TJ',
+  // ── CLIENTS ── add below as you approve them:
+  'SN-GYM-T5R2': 'Gym Coworker Test',
+  // 'SN-CLI-XXXX': 'Business Name',
+};
+
+function checkAccess() {
+  const token = new URLSearchParams(window.location.search).get('token');
+  if (token && VALID_TOKENS[token]) return true;
+  document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
+  document.querySelector('.tool-nav').style.display = 'none';
+  const ls = document.getElementById('lock-screen');
+  ls.style.display = 'flex';
+  return false;
+}
+
+// ══════════════════════════════════════════════
+//  RESUME FROM TIER 2 URL
+// ══════════════════════════════════════════════
+function loadFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const d = params.get('d');
+  if (!d) return false;
+  try {
+    const data = JSON.parse(decodeURIComponent(escape(atob(d))));
+    if (data.rev) document.getElementById('g-revenue').value = data.rev;
+    if (data.eb)  document.getElementById('g-ebitda').value  = data.eb;
+    if (data.emp) document.getElementById('g-employees').value = data.emp;
+    if (data.dep) {
+      const el = document.getElementById('dep-' + data.dep);
+      if (el) { el.classList.add('selected'); el.querySelector('input').checked = true; }
+      state.dep = data.dep;
+    }
+    if (data.name || data.company) {
+      const note = document.createElement('div');
+      note.style.cssText = 'background:var(--dark);color:rgba(255,255,255,0.82);padding:1rem 1.25rem;border-radius:4px;font-size:0.85rem;margin-bottom:1.5rem;border-left:3px solid var(--accent)';
+      note.innerHTML = `<strong style="color:var(--accent-lt)">Welcome back${data.name ? ', '+data.name : ''}.</strong> We\'ve carried forward your answers from the quick assessment. Your business overview is pre-filled — review it, adjust anything, then continue.`;
+      const wrap = document.querySelector('.general-wrap');
+      if (wrap) wrap.insertBefore(note, wrap.querySelector('.eyebrow').nextSibling);
+    }
+    if (data.r) Object.entries(data.r).forEach(([k,v]) => { state.ratings[k] = v; });
+    onInputChange();
+    return true;
+  } catch(e) { return false; }
 }
 
 // ══════════════════════════════════════════════
 //  INIT
 // ══════════════════════════════════════════════
-buildMini();
+if (checkAccess()) {
+  buildMini();
+  loadFromURL();
+}
 </script>
 </body>
 </html>
