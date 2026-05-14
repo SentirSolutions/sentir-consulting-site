@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sentir Solutions — Business Health Assessment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:           #F5F0E8;
+      --bg-alt:       #FFFFFF;
+      --dark:         #2C3A2F;
+      --darker:       #1E2A21;
+      --text:         #1A1A1A;
+      --muted:        #5C5852;
+      --accent:       #B5651D;
+      --accent-lt:    #D4874A;
+      --border:       #DDD6C8;
+      --solid-c:      #2D6A2D;
+      --solid-bg:     #EAF3DE;
+      --solid-br:     #5A9A5A;
+      --partial-c:    #7A5000;
+      --partial-bg:   #FFF3D0;
+      --partial-br:   #C8960A;
+      --gap-c:        #9B1C1C;
+      --gap-bg:       #FEF0F0;
+      --gap-br:       #D94040;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      font-size: 16px;
+    }
+
+    /* ── NAV ── */
+    .tool-nav {
+      background: var(--dark);
+      padding: 0 2rem;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #fff;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+    .nav-logo .acc { color: var(--accent-lt); }
+    .step-trail { display: flex; align-items: center; gap: 5px; }
+    .step-node {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      transition: all 0.2s;
+    }
+    .step-node.done { background: var(--accent-lt); }
+    .step-node.active { background: #fff; width: 10px; height: 10px; }
+    .step-line { width: 18px; height: 1px; background: rgba(255,255,255,0.15); }
+
+    /* ── SCREENS ── */
+    .screen { display: none; animation: fadeIn 0.2s ease; }
+    .screen.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+    /* ── SHARED ELEMENTS ── */
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.9rem;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      padding: 0.8rem 1.75rem;
+      border: none;
+      border-radius: 3px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: background 0.15s;
+    }
+    .btn-primary:hover { background: #9A5518; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      padding: 0.8rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-ghost:hover { border-color: var(--muted); color: var(--text); }
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── WELCOME ── */
+    .welcome-wrap {
+      min-height: calc(100vh - 58px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+    }
+    .welcome-inner { max-width: 620px; width: 100%; }
+    .welcome-inner h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 2.1rem;
+      font-weight: 300;
+      line-height: 1.25;
+      color: var(--dark);
+      margin-bottom: 1.1rem;
+    }
+    .welcome-inner h1 em { font-style: italic; color: var(--accent); }
+    .welcome-inner p { color: var(--muted); margin-bottom: 0.9rem; font-size: 0.95rem; }
+    .welcome-meta {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      margin: 1.75rem 0;
+      padding: 1.25rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .meta-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+    .meta-value { font-size: 0.9rem; font-weight: 500; color: var(--dark); }
+    .tim-note {
+      background: var(--dark);
+      color: rgba(255,255,255,0.82);
+      padding: 1.25rem 1.5rem;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      line-height: 1.65;
+      margin: 1.5rem 0;
+      border-left: 3px solid var(--accent);
+    }
+    .tim-note strong { color: var(--accent-lt); }
+
+    /* ── GENERAL ── */
+    .general-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+    .screen-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 0.4rem;
+    }
+    .screen-sub { color: var(--muted); font-size: 0.88rem; margin-bottom: 2rem; }
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .field-grid.one-col { grid-template-columns: 1fr; }
+    .field { display: flex; flex-direction: column; gap: 5px; }
+    .field label { font-size: 13px; font-weight: 500; color: var(--dark); }
+    .field-hint { font-size: 11px; color: var(--muted); }
+    .field input, .field select {
+      padding: 0.65rem 0.875rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.93rem;
+      background: var(--bg-alt);
+      color: var(--text);
+      transition: border-color 0.15s;
+    }
+    .field input:focus, .field select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(181,101,29,0.1);
+    }
+    .prefix-wrap { position: relative; }
+    .prefix-wrap .pfx {
+      position: absolute;
+      left: 0.875rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 0.93rem;
+      pointer-events: none;
+    }
+    .prefix-wrap input { padding-left: 1.6rem; }
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 1.75rem 0; }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .radio-stack { display: flex; flex-direction: column; gap: 8px; }
+    .radio-opt {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      cursor: pointer;
+      background: var(--bg-alt);
+      transition: all 0.15s;
+    }
+    .radio-opt:hover { border-color: #C0B8AC; }
+    .radio-opt.selected { border-color: var(--accent); background: #FDF5EC; }
+    .radio-opt input[type="radio"] { margin-top: 3px; accent-color: var(--accent); flex-shrink: 0; }
+    .r-label { font-size: 0.9rem; font-weight: 500; color: var(--dark); }
+    .r-desc { font-size: 12px; color: var(--muted); margin-top: 1px; }
+
+    /* ── ASSESSMENT ── */
+    .assessment-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .assessment-header { margin-bottom: 1.25rem; }
+    .assessment-header h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.35rem;
+      font-weight: 300;
+      color: var(--dark);
+    }
+    .area-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 1.75rem;
+      overflow-x: auto;
+    }
+    .a-tab {
+      padding: 0.55rem 1rem;
+      font-size: 12px;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      color: var(--muted);
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      transition: all 0.15s;
+      letter-spacing: 0.01em;
+    }
+    .a-tab:hover { color: var(--text); }
+    .a-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-num { opacity: 0.45; margin-right: 4px; }
+    .tab-pip {
+      display: inline-block;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--border);
+      margin-left: 5px;
+      vertical-align: middle;
+      transition: background 0.2s;
+    }
+    .tab-pip.lit { background: var(--accent); }
+
+    .a-layout {
+      display: grid;
+      grid-template-columns: 1fr 230px;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    /* Questions */
+    .q-col { display: flex; flex-direction: column; gap: 9px; }
+    .area-intro {
+      font-size: 12px;
+      color: var(--muted);
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2px;
+      font-style: italic;
+    }
+    .q-card {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1rem 1.2rem;
+      transition: border-color 0.15s;
+    }
+    .q-card.answered { border-color: #C4BAA8; }
+    .q-num-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .q-text { font-size: 0.88rem; color: var(--text); line-height: 1.55; margin-bottom: 7px; }
+    .q-hint { font-size: 11px; color: var(--muted); margin-bottom: 9px; font-style: italic; }
+    .rating-row { display: flex; gap: 6px; }
+    .r-btn {
+      font-size: 12px;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      padding: 4px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: transparent;
+      cursor: pointer;
+      color: var(--muted);
+      transition: all 0.12s;
+    }
+    .r-btn:hover { border-color: var(--muted); color: var(--text); }
+    .r-btn.sel-solid { background: var(--solid-bg); color: var(--solid-c); border-color: var(--solid-br); }
+    .r-btn.sel-partial { background: var(--partial-bg); color: var(--partial-c); border-color: var(--partial-br); }
+    .r-btn.sel-gap { background: var(--gap-bg); color: var(--gap-c); border-color: var(--gap-br); }
+
+    /* Sidebar */
+    .s-col { display: flex; flex-direction: column; gap: 10px; position: sticky; top: 75px; }
+    .s-block {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1rem 1.1rem;
+    }
+    .s-block-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    .health-display { display: flex; align-items: center; gap: 12px; }
+    .ring-pct { font-size: 1.25rem; font-weight: 600; color: var(--dark); line-height: 1; }
+    .ring-status { font-size: 12px; margin-top: 2px; font-weight: 500; }
+    .ring-count { font-size: 11px; color: var(--muted); margin-top: 1px; }
+    .opp-value { font-size: 1.05rem; font-weight: 600; color: var(--dark); }
+    .opp-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .s-divider { border: none; border-top: 1px solid var(--border); margin: 8px 0; }
+    .mini-rows { display: flex; flex-direction: column; gap: 5px; }
+    .mini-row { display: flex; align-items: center; gap: 6px; }
+    .mini-name { font-size: 11px; color: var(--muted); width: 70px; flex-shrink: 0; }
+    .mini-bar-wrap { flex: 1; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .mini-bar { height: 100%; border-radius: 2px; transition: width 0.3s; }
+    .mini-pct { font-size: 10px; color: var(--muted); min-width: 24px; text-align: right; }
+
+    /* Area nav buttons */
+    .area-nav-btns { display: flex; gap: 6px; }
+    .btn-area {
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      background: var(--bg-alt);
+      border-radius: 3px;
+      cursor: pointer;
+      color: var(--muted);
+      transition: all 0.15s;
+    }
+    .btn-area:hover { border-color: var(--muted); color: var(--text); }
+    .btn-area.primary {
+      background: var(--dark);
+      color: #fff;
+      border-color: var(--dark);
+    }
+    .btn-area.primary:hover { background: var(--darker); }
+
+    /* ── SUMMARY ── */
+    .summary-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+    .summary-wrap h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.75rem;
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 0.4rem;
+    }
+    .summary-sub { color: var(--muted); font-size: 0.88rem; margin-bottom: 2rem; }
+    .summary-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 1.75rem;
+    }
+    .sum-stat {
+      background: var(--dark);
+      color: #fff;
+      padding: 1.25rem;
+      border-radius: 4px;
+    }
+    .sum-stat .ss-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 6px;
+    }
+    .sum-stat .ss-value {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.1;
+    }
+    .sum-stat .ss-sub { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+    .scorecard {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 1.75rem;
+    }
+    .sc-row {
+      display: grid;
+      grid-template-columns: 190px 1fr 80px 110px;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .sc-row:last-child { border-bottom: none; }
+    .sc-row.hdr {
+      background: var(--bg);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .sc-name { font-size: 13px; font-weight: 500; color: var(--dark); }
+    .sc-bar-wrap { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .sc-bar { height: 100%; border-radius: 3px; }
+    .sc-pct { font-size: 13px; font-weight: 600; text-align: right; }
+    .sc-opp { font-size: 12px; text-align: right; font-weight: 500; }
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 10px;
+      letter-spacing: 0.04em;
+    }
+    .badge.solid { background: var(--solid-bg); color: var(--solid-c); }
+    .badge.partial { background: var(--partial-bg); color: var(--partial-c); }
+    .badge.gap { background: var(--gap-bg); color: var(--gap-c); }
+    .badge.none { background: var(--bg); color: var(--muted); }
+    .review-box {
+      background: var(--dark);
+      color: rgba(255,255,255,0.82);
+      padding: 1.5rem;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+      border-left: 3px solid var(--accent);
+    }
+    .review-box strong { color: var(--accent-lt); }
+    .submit-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .submit-note { font-size: 12px; color: var(--muted); }
+    .print-note { font-size: 11px; color: var(--muted); margin-top: 0.75rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      .a-layout { grid-template-columns: 1fr; }
+      .s-col { position: static; }
+      .field-grid { grid-template-columns: 1fr; }
+      .summary-stats { grid-template-columns: 1fr; }
+      .sc-row { grid-template-columns: 1fr 1fr; }
+      .sc-row .sc-bar-wrap, .sc-row.hdr { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="tool-nav">
+  <span class="nav-logo"><span class="acc">((</span> Sentir Solutions</span>
+  <div class="step-trail">
+    <div class="step-node active" id="dot0"></div>
+    <div class="step-line"></div>
+    <div class="step-node" id="dot1"></div>
+    <div class="step-line"></div>
+    <div class="step-node" id="dot2"></div>
+    <div class="step-line"></div>
+    <div class="step-node" id="dot3"></div>
+  </div>
+</nav>
+
+<!-- ══════════════ SCREEN 0 — WELCOME ══════════════ -->
+<div class="screen active" id="screen-welcome">
+  <div class="welcome-wrap">
+    <div class="welcome-inner">
+      <p class="eyebrow">Sentir Solutions &nbsp;·&nbsp; Business Health Assessment</p>
+      <h1>A sincere assessment<br>of your business.<br><em>All of it.</em></h1>
+      <p>You've taken the first step by engaging Sentir. Before we sit down together, this assessment gives Tim a clear picture of where your business stands — its people, its processes, its systems, its cost structure, its operations, and what it's actually worth.</p>
+      <p>There are no wrong answers. Rate each statement as honestly as you can. You'll see real estimates update as you go, and Tim will review everything before your first session.</p>
+      <div class="welcome-meta">
+        <div>
+          <div class="meta-label">Time required</div>
+          <div class="meta-value">30 – 45 minutes</div>
+        </div>
+        <div>
+          <div class="meta-label">Sections</div>
+          <div class="meta-value">6 areas + business overview</div>
+        </div>
+        <div>
+          <div class="meta-label">Who sees this</div>
+          <div class="meta-value">Tim Hislop only</div>
+        </div>
+        <div>
+          <div class="meta-label">When to expect a response</div>
+          <div class="meta-value">Within 48 hours</div>
+        </div>
+      </div>
+      <div class="tim-note">
+        <strong>From Tim:</strong> I'll review your responses before we meet and adjust what we cover based on what you share here. Don't overthink the ratings — your first instinct is usually right, and honest answers are what make the assessment useful. The estimates you see are starting points, not final numbers. We'll refine them together.
+      </div>
+      <button class="btn-primary" onclick="goTo(1)">Begin Assessment &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SCREEN 1 — GENERAL ══════════════ -->
+<div class="screen" id="screen-general">
+  <div class="general-wrap">
+    <p class="eyebrow">Business Overview</p>
+    <h2 class="screen-title">Your business, in round numbers</h2>
+    <p class="screen-sub">These figures feed every estimate you'll see across all six areas. Round numbers are fine — we're looking for order of magnitude, not audit precision.</p>
+
+    <div class="field-grid">
+      <div class="field">
+        <label for="g-revenue">Annual revenue</label>
+        <div class="prefix-wrap">
+          <span class="pfx">$</span>
+          <input type="number" id="g-revenue" placeholder="e.g. 15000000" min="0" step="500000" oninput="onInputChange()">
+        </div>
+      </div>
+      <div class="field">
+        <label for="g-ebitda">Annual EBITDA &nbsp;<span style="font-weight:300;color:var(--muted);font-size:12px">(optional)</span></label>
+        <div class="prefix-wrap">
+          <span class="pfx">$</span>
+          <input type="number" id="g-ebitda" placeholder="Leave blank to estimate" min="0" step="50000" oninput="onInputChange()">
+        </div>
+        <span class="field-hint">We'll use 10% of revenue if left blank</span>
+      </div>
+    </div>
+
+    <div class="field-grid">
+      <div class="field">
+        <label for="g-employees">Number of employees</label>
+        <input type="number" id="g-employees" placeholder="e.g. 45" min="1" step="1" oninput="onInputChange()">
+      </div>
+      <div class="field">
+        <label for="g-years">Years in business</label>
+        <input type="number" id="g-years" placeholder="e.g. 22" min="1" step="1">
+      </div>
+    </div>
+
+    <div class="field-grid">
+      <div class="field">
+        <label for="g-industry">Industry</label>
+        <select id="g-industry">
+          <option value="">Select one</option>
+          <option>Printing &amp; Signage</option>
+          <option>Logistics &amp; Distribution</option>
+          <option>Manufacturing</option>
+          <option>Professional Services</option>
+          <option>Construction &amp; Trades</option>
+          <option>Wholesale &amp; Distribution</option>
+          <option>Family-owned Retail</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="g-exit">Considering exit or succession within</label>
+        <select id="g-exit">
+          <option value="">Not currently planning</option>
+          <option value="3">Next 3 years</option>
+          <option value="5">Next 5 years</option>
+          <option value="10">Next 10 years</option>
+        </select>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+    <p class="section-label">Owner involvement in day-to-day operations</p>
+
+    <div class="radio-stack">
+      <label class="radio-opt" id="dep-high" onclick="selectDep('high',this)">
+        <input type="radio" name="dep" value="high">
+        <div>
+          <div class="r-label">The business runs through me</div>
+          <div class="r-desc">Key decisions, customer relationships, and institutional knowledge flow primarily through the owner</div>
+        </div>
+      </label>
+      <label class="radio-opt" id="dep-med" onclick="selectDep('med',this)">
+        <input type="radio" name="dep" value="med">
+        <div>
+          <div class="r-label">Significant but not total</div>
+          <div class="r-desc">Strong team in place, but the owner remains the anchor for important calls and key relationships</div>
+        </div>
+      </label>
+      <label class="radio-opt" id="dep-low" onclick="selectDep('low',this)">
+        <input type="radio" name="dep" value="low">
+        <div>
+          <div class="r-label">Mostly independent</div>
+          <div class="r-desc">The team can operate for extended periods without the owner's direct involvement</div>
+        </div>
+      </label>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn-ghost" onclick="goTo(0)">&larr; Back</button>
+      <button class="btn-primary" onclick="goTo(2)">Continue to Assessment &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SCREEN 2 — ASSESSMENT ══════════════ -->
+<div class="screen" id="screen-assessment">
+  <div class="assessment-wrap">
+    <div class="assessment-header">
+      <p class="eyebrow">Health Assessment &nbsp;·&nbsp; Six Areas</p>
+      <h2>Rate each statement. Watch your numbers update.</h2>
+    </div>
+
+    <div class="area-tabs" id="areaTabs">
+      <button class="a-tab active" onclick="switchArea(0)"><span class="tab-num">01</span>Knowledge<span class="tab-pip" id="tp0"></span></button>
+      <button class="a-tab" onclick="switchArea(1)"><span class="tab-num">02</span>Automation<span class="tab-pip" id="tp1"></span></button>
+      <button class="a-tab" onclick="switchArea(2)"><span class="tab-num">03</span>Revenue<span class="tab-pip" id="tp2"></span></button>
+      <button class="a-tab" onclick="switchArea(3)"><span class="tab-num">04</span>Process<span class="tab-pip" id="tp3"></span></button>
+      <button class="a-tab" onclick="switchArea(4)"><span class="tab-num">05</span>Profit<span class="tab-pip" id="tp4"></span></button>
+      <button class="a-tab" onclick="switchArea(5)"><span class="tab-num">06</span>Valuation<span class="tab-pip" id="tp5"></span></button>
+    </div>
+
+    <div class="a-layout">
+      <div class="q-col" id="qCol"></div>
+
+      <div class="s-col">
+        <!-- Health ring -->
+        <div class="s-block">
+          <div class="s-block-label">Area health</div>
+          <div class="health-display">
+            <svg width="56" height="56" viewBox="0 0 56 56">
+              <circle cx="28" cy="28" r="22" fill="none" stroke="var(--border)" stroke-width="5"/>
+              <circle id="ringArc" cx="28" cy="28" r="22" fill="none" stroke="var(--accent)" stroke-width="5"
+                stroke-dasharray="138" stroke-dashoffset="138" stroke-linecap="round"
+                transform="rotate(-90 28 28)" style="transition:stroke-dashoffset 0.3s,stroke 0.3s"/>
+            </svg>
+            <div>
+              <div class="ring-pct" id="ringPct">—</div>
+              <div class="ring-status" id="ringStatus"></div>
+              <div class="ring-count" id="ringCount">0 answered</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Opportunity -->
+        <div class="s-block">
+          <div class="s-block-label" id="sOppLabel">Annual opportunity</div>
+          <div class="opp-value" id="sOppVal">—</div>
+          <div class="opp-desc" id="sOppDesc">Answer questions to see your estimate</div>
+        </div>
+
+        <!-- All areas mini -->
+        <div class="s-block">
+          <div class="s-block-label">All areas</div>
+          <div class="mini-rows" id="miniRows"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn-ghost" onclick="goTo(1)">&larr; Back to overview</button>
+      <div class="area-nav-btns">
+        <button class="btn-area" id="btnPrev" onclick="prevArea()">← Prev</button>
+        <button class="btn-area primary" id="btnNext" onclick="nextArea()">Next area →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SCREEN 3 — SUMMARY ══════════════ -->
+<div class="screen" id="screen-summary">
+  <div class="summary-wrap">
+    <p class="eyebrow">Your Results</p>
+    <h2>Business health scorecard</h2>
+    <p class="summary-sub">Here is where your business stands across all six areas, based on your responses.</p>
+
+    <div class="summary-stats">
+      <div class="sum-stat">
+        <div class="ss-label">Annual opportunity</div>
+        <div class="ss-value" id="sumOpp">—</div>
+        <div class="ss-sub">Conservative estimate across 5 areas</div>
+      </div>
+      <div class="sum-stat">
+        <div class="ss-label">Valuation gap</div>
+        <div class="ss-value" id="sumVal">—</div>
+        <div class="ss-sub">vs. a fully documented, owner-independent business</div>
+      </div>
+      <div class="sum-stat">
+        <div class="ss-label">Overall health</div>
+        <div class="ss-value" id="sumHealth">—</div>
+        <div class="ss-sub">Across all answered areas</div>
+      </div>
+    </div>
+
+    <div class="scorecard">
+      <div class="sc-row hdr">
+        <div>Area</div>
+        <div>Health</div>
+        <div>Score</div>
+        <div>Opportunity</div>
+      </div>
+      <div id="scorecardBody"></div>
+    </div>
+
+    <div class="review-box">
+      <strong>What happens next:</strong> Tim will review these results before your first working session and come prepared with specific questions for the areas that need the most attention. You don't need to prepare anything further — just show up ready to talk about your business.
+    </div>
+
+    <div class="submit-row">
+      <button class="btn-primary" onclick="submitResults()">Send results to Tim &rarr;</button>
+      <span class="submit-note">Sent privately to tim.hislop@gmail.com</span>
+    </div>
+    <p class="print-note">You can also print or save this page for your own records.</p>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  DATA
+// ══════════════════════════════════════════════
+const AREAS = [
+  {
+    id: 0, name: 'Knowledge',
+    fullName: 'Knowledge & Documentation',
+    intro: 'Rate how well your business captures and shares what your key people know.',
+    oppLabel: 'Annual risk exposure',
+    oppDesc: 'Value at risk from undocumented knowledge and key-person dependency',
+    questions: [
+      {
+        text: 'If your top two people were unavailable for 30 days, the team could handle all customer relationships without them.',
+        hint: 'Consider pricing decisions, account history, special terms, and escalations.',
+        impact: [0.025, 0.012, 0]
+      },
+      {
+        text: 'Customer pricing, terms, and special arrangements are documented and accessible to more than one person.',
+        hint: 'Not just in someone\'s memory or a personal spreadsheet.',
+        impact: [0.015, 0.007, 0]
+      },
+      {
+        text: 'A new hire could reach full productivity in this role within 90 days using documented resources alone.',
+        hint: 'Without relying on shadowing one senior person indefinitely.',
+        impact: [0.010, 0.005, 0]
+      },
+      {
+        text: 'We have never lost — or nearly lost — a customer because a key employee departed.',
+        hint: 'Rate in reverse: Solid = never a concern; Gap = this has happened.',
+        impact: [0.020, 0.010, 0]
+      },
+      {
+        text: 'Vendor relationships, negotiated terms, and key contacts exist somewhere beyond the owner\'s memory.',
+        impact: [0.008, 0.004, 0]
+      },
+      {
+        text: 'Day-to-day operational decisions are made by the team without routine escalation to the owner.',
+        impact: [0.015, 0.007, 0]
+      }
+    ]
+  },
+  {
+    id: 1, name: 'Automation',
+    fullName: 'Admin & Automation',
+    intro: 'Rate how efficiently your business handles repetitive operational tasks.',
+    oppLabel: 'Time & cost savings',
+    oppDesc: 'Estimated savings from automation, integration, and eliminated manual work',
+    questions: [
+      {
+        text: 'Invoicing and accounts receivable runs without manual re-entry or reconciliation each cycle.',
+        impact: [0.010, 0.005, 0]
+      },
+      {
+        text: 'We know in real time which jobs, clients, or services are most and least profitable.',
+        hint: 'Not just at year-end when the accountant runs the numbers.',
+        impact: [0.015, 0.007, 0]
+      },
+      {
+        text: 'Scheduling, job tracking, or dispatch is managed by a system — not spreadsheets, whiteboards, or memory.',
+        impact: [0.012, 0.006, 0]
+      },
+      {
+        text: 'Operational and financial reporting is generated automatically — not assembled manually each period.',
+        impact: [0.008, 0.004, 0]
+      },
+      {
+        text: 'Our core business tools share data — information does not need to be entered more than once.',
+        hint: 'e.g. CRM, accounting, job management, and scheduling.',
+        impact: [0.010, 0.005, 0]
+      }
+    ]
+  },
+  {
+    id: 2, name: 'Revenue',
+    fullName: 'Revenue Leakage',
+    intro: 'Rate how consistently your business captures the revenue it earns.',
+    oppLabel: 'Recoverable revenue',
+    oppDesc: 'Estimated annual revenue leaking through follow-up, pricing, and retention gaps',
+    questions: [
+      {
+        text: 'Every quote or proposal receives a follow-up within 72 hours — without the owner making it happen.',
+        impact: [0.020, 0.010, 0]
+      },
+      {
+        text: 'Pricing discounts and exceptions follow a documented policy and are tracked when they occur.',
+        hint: 'Not informally granted at the point of the conversation.',
+        impact: [0.015, 0.007, 0]
+      },
+      {
+        text: 'We have a clear process for identifying and billing work that falls outside the original scope.',
+        impact: [0.012, 0.006, 0]
+      },
+      {
+        text: 'We know our customer retention rate and have an active plan to improve it.',
+        impact: [0.025, 0.012, 0]
+      },
+      {
+        text: 'We track why we lose deals and use that data to improve how we sell.',
+        impact: [0.010, 0.005, 0]
+      }
+    ]
+  },
+  {
+    id: 3, name: 'Process',
+    fullName: 'Process Standardization',
+    intro: 'Rate how consistently your business delivers quality, regardless of who does the work.',
+    oppLabel: 'Rework & error savings',
+    oppDesc: 'Estimated cost of inconsistent execution, rework, and quality variation',
+    questions: [
+      {
+        text: 'The same job or service is executed consistently, regardless of who performs it.',
+        impact: [0.015, 0.007, 0]
+      },
+      {
+        text: 'Our core revenue-generating processes are documented in a format anyone on the team could follow.',
+        impact: [0.012, 0.006, 0]
+      },
+      {
+        text: 'Rework, errors, and customer complaints are rare — and tracked when they do occur.',
+        impact: [0.015, 0.007, 0]
+      },
+      {
+        text: 'New employees follow a structured onboarding process, not informal mentorship from whoever has time.',
+        impact: [0.008, 0.004, 0]
+      },
+      {
+        text: 'The methods of our best performers have been captured and shared with the rest of the team.',
+        impact: [0.010, 0.005, 0]
+      }
+    ]
+  },
+  {
+    id: 4, name: 'Profit',
+    fullName: 'Hidden Costs & Profit',
+    intro: 'Rate how well your business manages costs and margins at an operational level.',
+    oppLabel: 'Recoverable profit',
+    oppDesc: 'Estimated annual savings from cost optimization and overhead alignment',
+    questions: [
+      {
+        text: 'Our major vendor contracts have been reviewed and renegotiated within the last 24 months.',
+        hint: 'Not just renewed automatically.',
+        impact: [0.020, 0.010, 0]
+      },
+      {
+        text: 'We have audited all recurring software costs and subscriptions in the last 12 months.',
+        impact: [0, 0, 0],
+        empImpact: [200, 100, 0]
+      },
+      {
+        text: 'We know exactly which products, services, or customer types generate the highest and lowest margin.',
+        impact: [0.015, 0.007, 0]
+      },
+      {
+        text: 'Overhead and administrative costs have grown slower than revenue over the last three years.',
+        impact: [0.012, 0.006, 0]
+      },
+      {
+        text: 'Staffing levels match actual production demand — we are not carrying capacity we do not need.',
+        impact: [0.018, 0.009, 0]
+      }
+    ]
+  },
+  {
+    id: 5, name: 'Valuation',
+    fullName: 'Valuation Readiness',
+    intro: 'Rate how transferable and buyer-ready your business is today.',
+    oppLabel: 'Valuation upside',
+    oppDesc: 'Estimated gap vs. a fully documented, owner-independent business at sale',
+    isVal: true,
+    questions: [
+      {
+        text: 'The business could operate at full capacity for 90 days without the owner present.',
+        hint: 'Not just survive — actually serve customers at normal quality and speed.',
+        eMultiple: [0, 1.5, 3.0]
+      },
+      {
+        text: 'No single customer accounts for more than 15% of annual revenue.',
+        eMultiple: [0, 0.5, 1.0]
+      },
+      {
+        text: 'Financial records are clean, current, and could withstand buyer due diligence today.',
+        eMultiple: [0, 0.4, 0.75]
+      },
+      {
+        text: 'Key employees have agreements or incentives that would keep them through an ownership transition.',
+        eMultiple: [0, 0.4, 0.75]
+      },
+      {
+        text: 'We have a clear, documented picture of what makes this business worth acquiring.',
+        eMultiple: [0, 0.25, 0.5]
+      }
+    ]
+  }
+];
+
+// ══════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════
+const state = {
+  currentArea: 0,
+  ratings: {},
+  rev: 0, ebitda: 0, emp: 0, dep: ''
+};
+
+// ══════════════════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════════════════
+const SCREEN_IDS = ['welcome','general','assessment','summary'];
+
+function goTo(n) {
+  if (n === 2) { renderArea(state.currentArea); buildMini(); }
+  if (n === 3) { buildSummary(); }
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + SCREEN_IDS[n]).classList.add('active');
+  updateDots(n);
+  window.scrollTo(0, 0);
+}
+
+function updateDots(n) {
+  for (let i = 0; i < 4; i++) {
+    const d = document.getElementById('dot' + i);
+    d.className = 'step-node' + (i < n ? ' done' : i === n ? ' active' : '');
+  }
+}
+
+function selectDep(val, el) {
+  document.querySelectorAll('.radio-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('input').checked = true;
+  state.dep = val;
+}
+
+function onInputChange() {
+  const r = parseFloat(document.getElementById('g-revenue').value) || 0;
+  const e = parseFloat(document.getElementById('g-ebitda').value) || 0;
+  const emp = parseFloat(document.getElementById('g-employees').value) || 0;
+  state.rev = r;
+  state.ebitda = e || r * 0.10;
+  state.emp = emp;
+}
+
+// ══════════════════════════════════════════════
+//  ASSESSMENT
+// ══════════════════════════════════════════════
+function renderArea(aIdx) {
+  state.currentArea = aIdx;
+  const area = AREAS[aIdx];
+  const col = document.getElementById('qCol');
+
+  col.innerHTML = `<div class="area-intro">${area.fullName} — ${area.intro}</div>`;
+
+  area.questions.forEach((q, qi) => {
+    const key = `a${aIdx}q${qi}`;
+    const cur = state.ratings[key];
+    col.innerHTML += `
+      <div class="q-card ${cur !== undefined ? 'answered' : ''}" id="qc-${aIdx}-${qi}">
+        <div class="q-num-label">Area ${String(aIdx+1).padStart(2,'0')} &nbsp;·&nbsp; ${String(qi+1).padStart(2,'0')}</div>
+        <div class="q-text">${q.text}</div>
+        ${q.hint ? `<div class="q-hint">${q.hint}</div>` : ''}
+        <div class="rating-row">
+          <button class="r-btn ${cur===2?'sel-solid':''}" onclick="rate(${aIdx},${qi},2,this)">Solid</button>
+          <button class="r-btn ${cur===1?'sel-partial':''}" onclick="rate(${aIdx},${qi},1,this)">Partial</button>
+          <button class="r-btn ${cur===0?'sel-gap':''}" onclick="rate(${aIdx},${qi},0,this)">Gap</button>
+        </div>
+      </div>`;
+  });
+
+  updateSidebar(aIdx);
+  updateTabHighlight(aIdx);
+  document.getElementById('btnPrev').style.opacity = aIdx === 0 ? '0.4' : '1';
+  document.getElementById('btnNext').textContent = aIdx === AREAS.length-1 ? 'View Summary →' : 'Next area →';
+}
+
+function rate(aIdx, qi, val, btn) {
+  const key = `a${aIdx}q${qi}`;
+  state.ratings[key] = val;
+  document.getElementById(`qc-${aIdx}-${qi}`).classList.add('answered');
+  btn.parentElement.querySelectorAll('.r-btn').forEach(b => b.className = 'r-btn');
+  btn.classList.add(val===2?'sel-solid':val===1?'sel-partial':'sel-gap');
+  updateSidebar(aIdx);
+  updateTabPip(aIdx);
+  buildMini();
+}
+
+function switchArea(aIdx) {
+  renderArea(aIdx);
+}
+
+function updateTabHighlight(aIdx) {
+  document.querySelectorAll('.a-tab').forEach((t,i) => t.classList.toggle('active', i===aIdx));
+}
+
+function updateTabPip(aIdx) {
+  const area = AREAS[aIdx];
+  const answered = area.questions.some((_,qi) => state.ratings[`a${aIdx}q${qi}`] !== undefined);
+  document.getElementById('tp'+aIdx).className = 'tab-pip' + (answered ? ' lit' : '');
+}
+
+function prevArea() {
+  if (state.currentArea > 0) renderArea(state.currentArea - 1);
+}
+
+function nextArea() {
+  if (state.currentArea < AREAS.length-1) {
+    renderArea(state.currentArea + 1);
+    window.scrollTo(0,0);
+  } else {
+    goTo(3);
+  }
+}
+
+// ══════════════════════════════════════════════
+//  CALCULATIONS
+// ══════════════════════════════════════════════
+function getScore(aIdx) {
+  const area = AREAS[aIdx];
+  const vals = area.questions.map((_,qi) => state.ratings[`a${aIdx}q${qi}`]).filter(v => v !== undefined);
+  if (!vals.length) return null;
+  const pct = Math.round((vals.reduce((a,b)=>a+b,0) / (vals.length*2)) * 100);
+  return { pct, answered: vals.length, total: area.questions.length };
+}
+
+function getOpp(aIdx) {
+  const area = AREAS[aIdx];
+  let lo = 0, hi = 0;
+  if (area.isVal) {
+    let mult = 0;
+    area.questions.forEach((q,qi) => {
+      const v = state.ratings[`a${aIdx}q${qi}`];
+      if (v !== undefined && q.eMultiple) mult += q.eMultiple[2-v];
+    });
+    const eb = state.ebitda || state.rev * 0.10;
+    return { lo: Math.round(mult*eb*0.8), hi: Math.round(mult*eb*1.3), isVal: true };
+  }
+  area.questions.forEach((q,qi) => {
+    const v = state.ratings[`a${aIdx}q${qi}`];
+    if (v !== undefined) {
+      if (q.impact) { lo += q.impact[2-v]*state.rev*0.75; hi += q.impact[2-v]*state.rev*1.25; }
+      if (q.empImpact) { lo += q.empImpact[2-v]*(state.emp||1)*0.75; hi += q.empImpact[2-v]*(state.emp||1)*1.25; }
+    }
+  });
+  return { lo: Math.round(lo), hi: Math.round(hi), isVal: false };
+}
+
+function fmt(n) {
+  if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
+  if (n >= 1000) return '$' + Math.round(n/1000) + 'k';
+  return '$' + Math.round(n).toLocaleString();
+}
+
+function updateSidebar(aIdx) {
+  const score = getScore(aIdx);
+  const arc = document.getElementById('ringArc');
+  const circ = 138;
+
+  if (!score) {
+    arc.setAttribute('stroke-dashoffset', circ);
+    document.getElementById('ringPct').textContent = '—';
+    document.getElementById('ringStatus').textContent = '';
+    document.getElementById('ringCount').textContent = '0 answered';
+  } else {
+    const offset = Math.round(circ - circ * score.pct/100);
+    arc.setAttribute('stroke-dashoffset', offset);
+    const col = score.pct>=66 ? 'var(--solid-c)' : score.pct>=33 ? 'var(--accent)' : 'var(--gap-c)';
+    arc.setAttribute('stroke', col);
+    document.getElementById('ringPct').textContent = score.pct + '%';
+    const label = score.pct>=66 ? 'Solid' : score.pct>=33 ? 'Partial' : 'Gap';
+    document.getElementById('ringStatus').innerHTML = `<span style="color:${col}">${label}</span>`;
+    document.getElementById('ringCount').textContent = score.answered + ' of ' + score.total + ' answered';
+  }
+
+  const area = AREAS[aIdx];
+  const opp = getOpp(aIdx);
+  document.getElementById('sOppLabel').textContent = area.oppLabel;
+  document.getElementById('sOppDesc').textContent = area.oppDesc;
+  if (opp.lo === 0 && opp.hi === 0) {
+    document.getElementById('sOppVal').textContent = score ? '$0' : '—';
+  } else {
+    document.getElementById('sOppVal').textContent = fmt(opp.lo) + ' – ' + fmt(opp.hi);
+  }
+}
+
+function buildMini() {
+  const mini = document.getElementById('miniRows');
+  mini.innerHTML = AREAS.map((a,i) => {
+    const s = getScore(i);
+    const pct = s ? s.pct : 0;
+    const col = pct>=66 ? 'var(--solid-c)' : pct>=33 ? 'var(--accent)' : 'var(--gap-c)';
+    return `<div class="mini-row">
+      <span class="mini-name">${a.name}</span>
+      <div class="mini-bar-wrap"><div class="mini-bar" style="width:${pct}%;background:${col}"></div></div>
+      <span class="mini-pct">${s ? pct+'%' : '—'}</span>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════
+//  SUMMARY
+// ══════════════════════════════════════════════
+function buildSummary() {
+  let revLo=0, revHi=0, valLo=0, valHi=0, scoreSum=0, scoreCt=0;
+
+  const rows = AREAS.map((area,aIdx) => {
+    const score = getScore(aIdx);
+    const opp = getOpp(aIdx);
+    const pct = score ? score.pct : 0;
+    const col = pct>=66 ? 'var(--solid-c)' : pct>=33 ? '#B5651D' : 'var(--gap-c)';
+    const badge = pct>=66 ? 'solid' : pct>=33 ? 'partial' : 'gap';
+    const label = pct>=66 ? 'Solid' : pct>=33 ? 'Partial' : 'Gap';
+
+    if (score) { scoreSum += pct; scoreCt++; }
+
+    if (area.isVal) { valLo += opp.lo; valHi += opp.hi; }
+    else { revLo += opp.lo; revHi += opp.hi; }
+
+    const oppTxt = (opp.lo===0&&opp.hi===0) ? (score?'$0':'—') : fmt(opp.lo)+' – '+fmt(opp.hi);
+    const scCol = area.isVal ? 'var(--accent)' : (opp.lo>0?'var(--accent)':'var(--muted)');
+
+    return `<div class="sc-row">
+      <div class="sc-name">${area.fullName}</div>
+      <div class="sc-bar-wrap"><div class="sc-bar" style="width:${pct}%;background:${col}"></div></div>
+      <div class="sc-pct"><span class="badge ${score?badge:'none'}">${score?label:'—'}</span></div>
+      <div class="sc-opp" style="color:${scCol}">${oppTxt}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('scorecardBody').innerHTML = rows;
+
+  const overall = scoreCt > 0 ? Math.round(scoreSum/scoreCt) : 0;
+  document.getElementById('sumOpp').textContent = revLo>0 ? fmt(revLo)+' – '+fmt(revHi) : '—';
+  document.getElementById('sumVal').textContent = valLo>0 ? fmt(valLo)+' – '+fmt(valHi) : '—';
+  document.getElementById('sumHealth').textContent = scoreCt>0 ? overall+'%' : '—';
+}
+
+// ══════════════════════════════════════════════
+//  SUBMIT
+// ══════════════════════════════════════════════
+function submitResults() {
+  const rev = state.rev ? '$'+(state.rev/1000000).toFixed(1)+'M revenue' : 'Revenue not provided';
+  const emp = state.emp ? state.emp+' employees' : '';
+  const dep = state.dep || 'not specified';
+  const ind = document.getElementById('g-industry').value || 'not specified';
+  const exit = document.getElementById('g-exit').value || 'not planning';
+  const yrs = document.getElementById('g-years').value || '';
+
+  let body = `SENTIR BUSINESS HEALTH ASSESSMENT\n${'='.repeat(40)}\n\n`;
+  body += `BUSINESS OVERVIEW\n${'-'.repeat(20)}\n`;
+  body += `Revenue: ${rev}\n`;
+  if (emp) body += `Employees: ${emp}\n`;
+  if (yrs) body += `Years in business: ${yrs}\n`;
+  body += `Industry: ${ind}\n`;
+  body += `Owner dependency: ${dep}\n`;
+  body += `Exit horizon: ${exit}\n\n`;
+  body += `AREA SCORES\n${'-'.repeat(20)}\n`;
+
+  AREAS.forEach((area, aIdx) => {
+    const score = getScore(aIdx);
+    const opp = getOpp(aIdx);
+    body += `\n${area.fullName.toUpperCase()}\n`;
+    body += `Health: ${score ? score.pct+'%' : 'Not completed'}\n`;
+    if (opp.lo > 0) body += `Opportunity: ${fmt(opp.lo)} – ${fmt(opp.hi)}\n`;
+    area.questions.forEach((q, qi) => {
+      const v = state.ratings[`a${aIdx}q${qi}`];
+      const lbl = v===2?'SOLID':v===1?'PARTIAL':v===0?'GAP':'—';
+      body += `  [${lbl}] ${q.text.substring(0,70)}${q.text.length>70?'...':''}\n`;
+    });
+  });
+
+  body += `\n${'='.repeat(40)}\nGenerated by Sentir Business Health Assessment\n`;
+
+  const rev_label = document.getElementById('g-revenue').value ? ('$'+(parseInt(document.getElementById('g-revenue').value)/1000000).toFixed(1)+'M') : 'Business';
+  const subj = encodeURIComponent(`Sentir Assessment — ${rev_label} ${ind !== 'not specified' ? '· '+ind : ''}`);
+  window.location.href = `mailto:tim.hislop@gmail.com?subject=${subj}&body=${encodeURIComponent(body)}`;
+}
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+buildMini();
+</script>
+</body>
+</html>
