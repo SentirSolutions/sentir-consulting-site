@@ -592,8 +592,9 @@
     <div class="welcome-inner">
       <p class="eyebrow">Sentir Solutions &nbsp;·&nbsp; Business Health Assessment</p>
       <h1>A sincere assessment<br>of your business.<br><em>All of it.</em></h1>
-      <p>You've taken the first step by engaging Sentir. Before we sit down together, this assessment gives Tim a clear picture of where your business stands — its people, its processes, its systems, its cost structure, its operations, and what it's actually worth.</p>
-      <p>There are no wrong answers. Rate each statement as honestly as you can. You'll see real estimates update as you go, and Tim will review everything before your first session.</p>
+      <p>You've already given Tim a real foundation to work from. This is the deeper cut — and it changes how your first conversation goes.</p>
+      <p>When you finish this, Tim won't be walking in with a generic framework. He'll have a grounded read on your business maturity across every area that matters — where you're strong, where the gaps are, and which conversations are worth having. The goal is to skip the intake theater and spend your time on what's actually specific to you.</p>
+      <p>There are no wrong answers. Rate each statement as honestly as you can. Tim reviews everything before your first session — nothing leaves this tool except to him.</p>
       <div class="welcome-meta">
         <div>
           <div class="meta-label">Time required</div>
@@ -1411,13 +1412,16 @@ function loadFromURL() {
   } catch(e) { return false; }
 }
 
+
 // ══════════════════════════════════════════════
 //  INIT
 // ══════════════════════════════════════════════
-if (checkAccess()) {
-  buildMini();
-  loadFromURL();
-}
+document.addEventListener('DOMContentLoaded', () => {
+  if (!checkAccess()) return;
+  const resumed = loadFromURL();
+  if (resumed) { goTo(1); }
+  updateDots(0);
+});
 </script>
 </body>
 </html>

@@ -123,6 +123,29 @@
       .go-deeper.visible { flex-direction: column; align-items: flex-start; }
       .t-lead-grid { grid-template-columns: 1fr; }
     }
+
+    .rb-thankyou {
+      margin-bottom: 1rem;
+    }
+
+    .rb-hed {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 0.75rem;
+    }
+
+    .rb-body {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 0.65rem;
+    }
+
+    .rb-body strong {
+      color: var(--dark);
+    }
   </style>
 </head>
 <body>
@@ -293,9 +316,14 @@
           <span class="t-submit-note">Sent privately to Tim only</span>
         </div>
         <div class="resume-block" id="resumeBlock">
-          <div class="rb-label">Your private assessment link</div>
-          <div class="rb-desc">All your answers are carried forward. Open this anytime to go through the full 6-area assessment — no re-entering anything.</div>
-          <a class="rb-link" id="resumeLink" href="#" target="_blank">Loading your link…</a>
+          <div class="rb-thankyou">
+            <p class="rb-hed">Thank you — and I mean it.</p>
+            <p class="rb-body">What you just completed took real thought. I don't take that lightly.</p>
+            <p class="rb-body">Here's what happens next: I'll review your responses before we ever sit down together. That means I'm not walking in as a generic consultant with a standard checklist. I'll have a real foundation — where your business is strong, where the gaps are, and which conversations are actually worth having.</p>
+            <p class="rb-body">The third step is a deeper look — 40 questions across all seven areas. I'll send you a private link directly. When you complete it, I'll come into our first session with a grounded understanding of your business maturity. No intake theater. No time wasted on things I should already know. Just a focused conversation on what matters for you specifically.</p>
+            <p class="rb-body" style="margin-bottom:0;"><strong>Watch for an email from Tim.</strong> Your answers are already captured — nothing to re-enter when your link arrives.</p>
+          </div>
+          <a class="rb-link" id="resumeLink" href="#" target="_blank" style="display:none">Loading your link…</a>
         </div>
       </div>
     </div>
