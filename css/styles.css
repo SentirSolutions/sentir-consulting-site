@@ -140,6 +140,14 @@ nav {
 
 .hero h1 em { font-style: italic; color: var(--accent-lt); }
 
+.hero-intro {
+  font-size: 1.35rem;
+  color: #D4CFC9;
+  white-space: nowrap;
+  margin: 0 auto 1.1rem;
+  line-height: 1.5;
+}
+
 .hero-sub {
   font-size: 1.1rem;
   color: #B8B4AF;
@@ -450,4 +458,5 @@ footer a:hover { color: var(--accent-lt); }
   .page-hero { padding: 3.5rem 1.25rem 3rem; }
   section { padding: 4rem 1.25rem; }
   .contact-section { padding: 5rem 1.25rem; }
+  .hero-intro { white-space: normal; font-size: 1.15rem; }
 }
