@@ -1,5 +1,5 @@
 /**
- * Sentir Solutions — Google Apps Script Lead Capture
+ * Sentir Consulting — Google Apps Script Lead Capture
  *
  * SETUP INSTRUCTIONS:
  * 1. Open Google Sheets and create a new spreadsheet named "Sentir Leads"
