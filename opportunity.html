@@ -159,7 +159,17 @@
       <a href="about.html" class="nav-link">About</a>
       <a href="opportunity.html" class="nav-link cta active">Your Opportunity</a>
     </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mob-link">Home</a>
+    <a href="how-we-help.html" class="mob-link">How We Help</a>
+    <a href="mission.html" class="mob-link">Our Mission</a>
+    <a href="about.html" class="mob-link">About</a>
+    <a href="opportunity.html" class="mob-link cta active">Your Opportunity</a>
+  </div>
 
   <div class="page-hero">
     <div class="container">
@@ -660,5 +670,6 @@
     );
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   </script>
+  <script src="js/nav.js"></script>
 </body>
 </html>
