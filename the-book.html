@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Next Industrial Revolution — An Honest Guide to Ethical AI | Sentir Consulting</title>
+  <meta name="description" content="The Next Industrial Revolution: An Honest Guide to Ethical AI, by Timothy Hislop. A free 72-page guide for business owners, working people, and the next generation — what AI genuinely does, what it cannot do, and how to navigate the shift with integrity. Download the PDF." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* ── Book page only ── */
+    .book-hero-grid {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .book-cover {
+      width: 290px;
+      aspect-ratio: 5.5 / 8.5;
+      margin: 0 auto;
+      background: linear-gradient(160deg, #33443A 0%, var(--dark) 55%, #22301F 100%);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 3px;
+      box-shadow: 14px 18px 40px rgba(0,0,0,0.45), inset 4px 0 0 rgba(0,0,0,0.25);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2.2rem 1.8rem 1.8rem;
+      text-align: left;
+    }
+    .book-cover .cover-mark {
+      font-weight: 700;
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+    .book-cover .cover-mark .p1 { color: #FFFFFF; letter-spacing: -0.1em; }
+    .book-cover .cover-mark .p2 { color: var(--accent-lt); }
+    .book-cover .cover-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 300;
+      font-size: 1.65rem;
+      line-height: 1.22;
+      color: #FFFFFF;
+    }
+    .book-cover .cover-sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-lt);
+      margin-top: 0.9rem;
+    }
+    .book-cover .cover-author {
+      font-size: 0.82rem;
+      color: #B8B4AF;
+      letter-spacing: 0.05em;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 0.9rem;
+    }
+    .book-meta {
+      display: flex;
+      gap: 1.75rem;
+      flex-wrap: wrap;
+      margin-top: 1.4rem;
+      font-size: 0.82rem;
+      color: #9A9690;
+      letter-spacing: 0.05em;
+    }
+    .part-block {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 2rem 2.25rem;
+      position: relative;
+    }
+    .part-block::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 3px;
+      background: var(--accent);
+    }
+    .part-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .part-block h3 { margin-bottom: 0.6rem; }
+    .part-block .part-desc {
+      font-size: 0.93rem;
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+    }
+    .chapter-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.35rem 2rem;
+    }
+    .chapter-list li {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.5;
+      padding-left: 1.4rem;
+      position: relative;
+    }
+    .chapter-list li .ch-no {
+      position: absolute;
+      left: 0;
+      font-family: 'Fraunces', serif;
+      color: var(--accent);
+      font-size: 0.85rem;
+    }
+    @media (max-width: 900px) {
+      .book-hero-grid { grid-template-columns: 1fr; gap: 3rem; text-align: center; }
+      .book-hero-grid .hero-actions { justify-content: center; }
+      .book-meta { justify-content: center; }
+      .chapter-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html"><span class="mark-pipe1">(</span><span class="mark-pipe2">(</span> Sentir Consulting</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="how-we-help.html" class="nav-link">How We Help</a>
+      <a href="mission.html" class="nav-link">Our Mission</a>
+      <a href="the-book.html" class="nav-link active">The Book</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="opportunity.html" class="nav-link cta">Your Opportunity</a>
+    </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mob-link">Home</a>
+    <a href="how-we-help.html" class="mob-link">How We Help</a>
+    <a href="mission.html" class="mob-link">Our Mission</a>
+    <a href="the-book.html" class="mob-link active">The Book</a>
+    <a href="about.html" class="mob-link">About</a>
+    <a href="opportunity.html" class="mob-link cta">Your Opportunity</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="page-hero" style="padding: 5.5rem 2rem 5rem;">
+    <div class="book-hero-grid">
+      <div>
+        <p class="hero-eyebrow">A Book by Timothy Hislop &nbsp;·&nbsp; Founder, Sentir Consulting</p>
+        <h1>The Next Industrial Revolution<br /><em>An Honest Guide to Ethical AI</em></h1>
+        <p style="margin-bottom: 0.9rem;">
+          We are living through a generational shift in how work gets done and who does it —
+          not a product cycle, not a software upgrade. This book is the honest version of what
+          that means: what AI genuinely does well, where it reliably fails, and how to navigate
+          the shift with integrity, agency, and clear eyes.
+        </p>
+        <p style="margin-bottom: 2.25rem;">
+          It is free, and it is not a sales pitch. Read it, argue with it, pass it along.
+        </p>
+        <div class="hero-actions" style="justify-content: flex-start;">
+          <a href="downloads/The_Next_Industrial_Revolution.pdf" class="btn-primary" download="The Next Industrial Revolution - Timothy Hislop.pdf">Download the PDF — Free</a>
+          <a href="#whats-inside" class="btn-ghost">What's Inside</a>
+        </div>
+        <div class="book-meta">
+          <span>72 pages</span>
+          <span>19 chapters</span>
+          <span>No email required</span>
+        </div>
+      </div>
+      <div>
+        <div class="book-cover">
+          <div class="cover-mark"><span class="p1">(</span><span class="p2">(</span></div>
+          <div>
+            <div class="cover-title">The Next<br />Industrial<br />Revolution</div>
+            <div class="cover-sub">An Honest Guide<br />to Ethical AI</div>
+          </div>
+          <div class="cover-author">Timothy Hislop</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY THIS BOOK EXISTS -->
+  <section>
+    <div class="container">
+      <p class="section-label fade-in">Why This Book Exists</p>
+      <h2 class="fade-in">We have been here before.</h2>
+      <div class="divider fade-in"></div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem;" class="two-col">
+        <div class="fade-in">
+          <p style="color:var(--muted); margin-bottom:1.1rem;">
+            In the early 1800s, the textile workers of northern England watched power looms
+            arrive in their mills. Some smashed the machines. Most were afraid. A few figured
+            out that the question was not whether the machines were coming — they were — but
+            who would learn to run them.
+          </p>
+          <p style="color:var(--muted); margin-bottom:1.1rem;">
+            We are in that kind of moment now. And most of what's being written about it is
+            either vendor language, breathless headlines, or fear. This book strips all of
+            that away. It is not about how to buy AI tools. It's about how to think clearly
+            while everyone around you is selling.
+          </p>
+          <p style="color:var(--muted);">
+            It draws on years of delivering technology transformation at enterprise scale —
+            inside federal agencies and large commercial organizations, in the rooms where
+            enterprise AI actually gets built and deployed. Watching what works. Watching
+            what fails. And bringing that pattern recognition to the people who never had
+            access to it.
+          </p>
+        </div>
+        <div class="fade-in">
+          <div class="callout">
+            <p class="callout-label">From the Introduction</p>
+            <blockquote>
+              "Not engaging with AI is not a neutral choice. The people who recognize it
+              early and act thoughtfully — not frantically — are the ones who come through
+              this kind of transition with their footing intact."
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="alt">
+    <div class="container">
+      <p class="section-label fade-in">Who It's For</p>
+      <h2 class="fade-in">Three audiences, one honest conversation.</h2>
+      <div class="divider fade-in"></div>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.75rem; margin-top:1rem;" class="three-col">
+        <div class="card fade-in">
+          <div class="card-number">01</div>
+          <h3>The business owner</h3>
+          <p style="font-size:0.93rem; color:var(--muted);">
+            You built something real, and you're being pitched AI daily by people who don't
+            understand your business. This book shows you where the genuine value is — hidden
+            waste, undocumented knowledge, the valuation gap — and how to evaluate anyone
+            who wants to help you.
+          </p>
+        </div>
+        <div class="card fade-in">
+          <div class="card-number">02</div>
+          <h3>The working person</h3>
+          <p style="font-size:0.93rem; color:var(--muted);">
+            You've been with a company for ten or twenty years and you're watching AI change
+            your industry. This book is written for you honestly — what is actually happening
+            to jobs, what it means for yours, and what to do before the wave reaches you.
+          </p>
+        </div>
+        <div class="card fade-in">
+          <div class="card-number">03</div>
+          <h3>The person starting out</h3>
+          <p style="font-size:0.93rem; color:var(--muted);">
+            You're building a career in a world where the rules are changing mid-game.
+            The industrial revolution needed a generation to run it. So does this one.
+            You are not competing against AI — you are inheriting it.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INSIDE -->
+  <section id="whats-inside">
+    <div class="container">
+      <p class="section-label fade-in">What's Inside</p>
+      <h2 class="fade-in">Nineteen chapters in five parts.<br /><em>Read the part written for you.</em></h2>
+      <div class="divider fade-in"></div>
+      <div style="display:flex; flex-direction:column; gap:1.5rem; margin-top:1rem;">
+
+        <div class="part-block fade-in">
+          <p class="part-label">Part I &nbsp;·&nbsp; For Everyone</p>
+          <h3>The Honest Facts</h3>
+          <p class="part-desc">Before any decision can be made well, the facts need to be straight — what AI actually is, where it came from, what it genuinely does well, and where it reliably fails.</p>
+          <ul class="chapter-list">
+            <li><span class="ch-no">1</span>The Demo Is Not the Product</li>
+            <li><span class="ch-no">2</span>A Short, Honest History</li>
+            <li><span class="ch-no">3</span>What AI Can Genuinely Do</li>
+            <li><span class="ch-no">4</span>What AI Cannot Do</li>
+          </ul>
+        </div>
+
+        <div class="part-block fade-in">
+          <p class="part-label">Part II &nbsp;·&nbsp; For the Business Owner</p>
+          <h3>The Value Hiding in Your Business</h3>
+          <p class="part-desc">The hidden cost lines, the undocumented knowledge, the valuation gap — and how to find them without blowing up what already works.</p>
+          <ul class="chapter-list">
+            <li><span class="ch-no">5</span>Your Business Is Not a Tech Company</li>
+            <li><span class="ch-no">6</span>The Waste You Did Not Know You Were Carrying</li>
+            <li><span class="ch-no">7</span>The Institutional Knowledge Time Bomb</li>
+            <li><span class="ch-no">8</span>What Your Business Is Actually Worth — and What It Could Be</li>
+            <li><span class="ch-no">9</span>How to Evaluate Vendors</li>
+          </ul>
+        </div>
+
+        <div class="part-block fade-in">
+          <p class="part-label">Part III &nbsp;·&nbsp; For the Working Person</p>
+          <h3>What Is Actually Happening to Jobs</h3>
+          <p class="part-desc">The honest version of the conversation about work — not the headlines, not the hype. What's changing, what good employers do about it, and what to do before the wave reaches you.</p>
+          <ul class="chapter-list">
+            <li><span class="ch-no">10</span>What Is Actually Happening to Jobs</li>
+            <li><span class="ch-no">11</span>What to Do Before the Wave Reaches You</li>
+            <li><span class="ch-no">12</span>The Reinvestment Question — What Good Employers Do</li>
+            <li><span class="ch-no">13</span>The Gap Nobody Plans For</li>
+          </ul>
+        </div>
+
+        <div class="part-block fade-in">
+          <p class="part-label">Part IV &nbsp;·&nbsp; For the Next Generation</p>
+          <h3>Inheriting the Machine</h3>
+          <p class="part-desc">Every revolution needs a generation to run it. What to learn, what to build on, and why the soft skills are becoming the hard skills.</p>
+          <ul class="chapter-list">
+            <li><span class="ch-no">14</span>You Are Not Competing Against AI — You Are Inheriting It</li>
+            <li><span class="ch-no">15</span>What to Learn, What to Build On</li>
+            <li><span class="ch-no">16</span>The Soft Skills Are Becoming the Hard Skills</li>
+          </ul>
+        </div>
+
+        <div class="part-block fade-in">
+          <p class="part-label">Part V &nbsp;·&nbsp; For Everyone</p>
+          <h3>What Real Transformation Looks Like</h3>
+          <p class="part-desc">The practical questions that matter before you change anything, the invisible work that precedes any visible result, and why sincerity is a structural advantage — not just a value.</p>
+          <ul class="chapter-list">
+            <li><span class="ch-no">17</span>The Questions to Ask Before You Change Anything</li>
+            <li><span class="ch-no">18</span>What Real Transformation Looks Like</li>
+            <li><span class="ch-no">19</span>Sincerity Is the Foundation — and the Differentiator</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTHOR'S NOTE -->
+  <section class="alt">
+    <div class="container" style="max-width: 780px;">
+      <p class="section-label fade-in">From the Author's Note</p>
+      <h2 class="fade-in">How these pages were made<br /><em>is the argument in miniature.</em></h2>
+      <div class="divider fade-in"></div>
+      <p class="fade-in" style="color:var(--muted); margin-bottom:1.1rem;">
+        This book was written in collaboration with Claude, an AI assistant built by Anthropic —
+        and it says so plainly, because that is the book's argument in miniature. The author
+        brought the years in the rooms, the pattern recognition, the convictions, and the final
+        word on every page. The AI brought speed, structure, and honest pushback.
+      </p>
+      <p class="fade-in" style="color:var(--muted); margin-bottom:2rem;">
+        "Neither of us would have produced this book alone, and that is precisely the point.
+        The future these chapters describe — human judgment directing capable tools, and being
+        sharpened by them — is not a prediction. It is how these pages were made."
+      </p>
+      <p class="fade-in" style="font-size:0.9rem; color:var(--muted);">
+        — Timothy Hislop &nbsp;·&nbsp; Charlottesville, Virginia &nbsp;·&nbsp; 2026
+      </p>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD CTA -->
+  <section class="contact-section">
+    <div class="container">
+      <p class="section-label light fade-in">The Book Is Free</p>
+      <h2 class="light fade-in">Read it. Argue with it.<br />Pass it along.</h2>
+      <p class="lead light fade-in" style="margin:1.25rem auto 2.5rem;">
+        No email address, no sales call, no gate. If it was useful to you, pass it along to
+        someone standing where you were when you started reading it. And if it raises questions
+        about your own business — that's a conversation worth having.
+      </p>
+      <div class="hero-actions fade-in">
+        <a href="downloads/The_Next_Industrial_Revolution.pdf" class="btn-primary" download="The Next Industrial Revolution - Timothy Hislop.pdf">Download the PDF</a>
+        <a href="opportunity.html" class="btn-ghost">See Your Opportunity</a>
+      </div>
+      <br />
+      <a class="contact-email fade-in" href="mailto:timothy.hislop@sentir-solutions.com">timothy.hislop@sentir-solutions.com</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Sentir Consulting &nbsp;·&nbsp; Charlottesville, Virginia &nbsp;·&nbsp;
+      <a href="mailto:timothy.hislop@sentir-solutions.com">timothy.hislop@sentir-solutions.com</a>
+    </p>
+    <p style="margin-top:0.5rem; font-size:0.78rem; opacity:0.6;">Sentir Consulting, a <a href="https://sentirsolutions.github.io/sentir-solutions-site/" style="color:inherit;">Sentir Solutions®</a> Company</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+  <script src="js/nav.js"></script>
+</body>
+</html>
