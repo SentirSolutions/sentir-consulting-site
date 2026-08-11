@@ -33,13 +33,24 @@
       padding: 2.2rem 1.8rem 1.8rem;
       text-align: left;
     }
-    .book-cover .cover-mark {
-      font-weight: 700;
-      font-size: 1.5rem;
-      line-height: 1;
+    .book-cover .cover-top .cover-author-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #FFFFFF;
     }
-    .book-cover .cover-mark .p1 { color: #FFFFFF; letter-spacing: -0.1em; }
-    .book-cover .cover-mark .p2 { color: var(--accent-lt); }
+    .book-cover .cover-top .cover-tagline {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-lt);
+      margin-top: 0.35rem;
+    }
+    .book-cover .cover-top {
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      padding-bottom: 0.9rem;
+    }
     .book-cover .cover-title {
       font-family: 'Fraunces', serif;
       font-weight: 300;
@@ -54,13 +65,18 @@
       color: var(--accent-lt);
       margin-top: 0.9rem;
     }
-    .book-cover .cover-author {
-      font-size: 0.82rem;
+    .book-cover .cover-publisher {
+      font-size: 0.78rem;
       color: #B8B4AF;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       border-top: 1px solid rgba(255,255,255,0.15);
       padding-top: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
+    .book-cover .cover-publisher .p1 { color: #FFFFFF; font-weight: 700; font-size: 1rem; letter-spacing: -0.1em; line-height: 1; }
+    .book-cover .cover-publisher .p2 { color: var(--accent-lt); font-weight: 700; font-size: 1rem; line-height: 1; margin-right: 0.15rem; }
     .book-meta {
       display: flex;
       gap: 1.75rem;
@@ -178,12 +194,15 @@
       </div>
       <div>
         <div class="book-cover">
-          <div class="cover-mark"><span class="p1">(</span><span class="p2">(</span></div>
+          <div class="cover-top">
+            <div class="cover-author-name">Timothy Hislop</div>
+            <div class="cover-tagline">On work, AI, and what comes next</div>
+          </div>
           <div>
             <div class="cover-title">The Next<br />Industrial<br />Revolution</div>
             <div class="cover-sub">An Honest Guide<br />to Ethical AI</div>
           </div>
-          <div class="cover-author">Timothy Hislop</div>
+          <div class="cover-publisher"><span class="p1">(</span><span class="p2">(</span> Sentir Consulting</div>
         </div>
       </div>
     </div>
