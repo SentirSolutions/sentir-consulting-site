@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Sentir Sales Hub — Internal</title>
+<style>
+  :root{
+    --navy:#1B2A4A; --navy-2:#142136; --gold:#C8963E; --slate:#4A6080;
+    --light:#EEF3FA; --ink:#1B2330; --muted:#5C6B82; --line:#E2E8F2;
+    --new:#2E9E6B; --max:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--light);line-height:1.6}
+  a{color:var(--slate)}
+  /* ---- gate ---- */
+  #gate{position:fixed;inset:0;background:var(--navy);display:flex;align-items:center;justify-content:center;z-index:999}
+  #gate .box{background:#fff;border-radius:14px;padding:2.5rem;max-width:380px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+  #gate .mark{font-size:1.6rem;font-weight:800;color:var(--navy);letter-spacing:.04em}
+  #gate .mark b{color:var(--gold)}
+  #gate p{color:var(--muted);font-size:.9rem;margin:.6rem 0 1.4rem}
+  #gate input{width:100%;padding:.8rem 1rem;border:1px solid var(--line);border-radius:8px;font-size:1rem;margin-bottom:.8rem}
+  #gate button{width:100%;padding:.8rem;background:var(--navy);color:#fff;border:0;border-radius:8px;font-weight:600;font-size:1rem;cursor:pointer}
+  #gate .err{color:#C0392B;font-size:.82rem;height:1rem;margin-top:.4rem}
+  /* ---- header ---- */
+  header{background:var(--navy);color:#fff;padding:1.4rem 2rem}
+  header .inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+  .logo{font-size:1.3rem;font-weight:800;letter-spacing:.04em}
+  .logo b{color:var(--gold)}
+  .logo span{font-weight:400;opacity:.7;font-size:.95rem}
+  .hpill{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);border:1px solid rgba(200,150,62,.45);padding:.3rem .7rem;border-radius:20px}
+  /* ---- layout ---- */
+  .wrap{max-width:var(--max);margin:0 auto;padding:2rem}
+  .lead{background:#fff;border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:1.5rem 1.75rem;margin-bottom:2rem}
+  .lead h1{font-size:1.4rem;color:var(--navy);margin-bottom:.5rem}
+  .lead p{color:var(--muted)}
+  .lead .one-rule{margin-top:1rem;font-weight:600;color:var(--ink)}
+  .lead .one-rule b{color:var(--gold)}
+  /* nav chips */
+  .nav{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem;position:sticky;top:0;background:var(--light);padding:.75rem 0;z-index:50}
+  .nav a{font-size:.85rem;text-decoration:none;color:var(--navy);background:#fff;border:1px solid var(--line);padding:.45rem .9rem;border-radius:20px;transition:.15s}
+  .nav a:hover{background:var(--navy);color:#fff}
+  /* cards */
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:1.75rem;margin-bottom:1.5rem;scroll-margin-top:4.5rem}
+  .card h2{font-size:1.15rem;color:var(--navy);display:flex;align-items:center;gap:.6rem;margin-bottom:.4rem}
+  .card h2 .num{background:var(--navy);color:#fff;width:1.7rem;height:1.7rem;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.82rem;flex-shrink:0}
+  .card .sub{color:var(--muted);font-size:.9rem;margin-bottom:1rem}
+  .card h3{font-size:.95rem;color:var(--navy);margin:1.1rem 0 .4rem}
+  .card p{margin-bottom:.7rem}
+  .card ul{margin:.3rem 0 .8rem 1.2rem}
+  .card li{margin-bottom:.4rem}
+  .say{background:var(--light);border-radius:8px;padding:.9rem 1.1rem;margin:.5rem 0;font-style:italic;color:var(--navy);border-left:3px solid var(--gold)}
+  .say b{font-style:normal}
+  .obj{border:1px solid var(--line);border-radius:8px;padding:.9rem 1.1rem;margin-bottom:.7rem}
+  .obj .q{font-weight:600;color:var(--ink)}
+  .obj .a{color:var(--muted);margin-top:.3rem;font-size:.93rem}
+  .btnrow{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.6rem}
+  .btn{display:inline-block;text-decoration:none;font-size:.85rem;font-weight:600;padding:.6rem 1.1rem;border-radius:8px;background:var(--navy);color:#fff}
+  .btn.gold{background:var(--gold);color:#1B1B1B}
+  .btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--line)}
+  .tag-new{background:var(--new);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .45rem;border-radius:4px;vertical-align:middle;margin-left:.3rem}
+  .pending{font-size:.78rem;color:#B26A00;background:#FFF6E6;border:1px dashed #E3B968;border-radius:6px;padding:.15rem .5rem;display:inline-block}
+  /* maintainer */
+  .maint{background:var(--navy-2);color:#cdd7e6;border-radius:12px;padding:1.5rem 1.75rem;margin-top:2.5rem;font-size:.88rem}
+  .maint h2{color:#fff;font-size:1.05rem;margin-bottom:.6rem}
+  .maint code{background:rgba(255,255,255,.1);padding:.12rem .4rem;border-radius:4px;font-size:.82rem}
+  .maint ul{margin:.5rem 0 0 1.2rem}
+  footer{text-align:center;color:var(--muted);font-size:.8rem;padding:2rem}
+  @media(max-width:640px){.wrap{padding:1.25rem}.nav{position:static}}
+</style>
+</head>
+<body>
+
+<!-- ============ ACCESS GATE (light — see note to Tim) ============ -->
+<div id="gate">
+  <div class="box">
+    <div class="mark">( <b>(</b> Sentir Sales Hub</div>
+    <p>Internal. Enter the team passphrase to continue.</p>
+    <input id="pw" type="password" placeholder="Passphrase" onkeydown="if(event.key==='Enter')tryGate()" />
+    <button onclick="tryGate()">Enter</button>
+    <div class="err" id="err"></div>
+  </div>
+</div>
+
+<header>
+  <div class="inner">
+    <div class="logo">( <b>(</b> Sentir <span>· Sales Hub</span></div>
+    <div class="hpill">Internal · Account Manager</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="lead">
+    <h1>Your one job: get Tim in the room.</h1>
+    <p>Tim closes. He always has. The hard part — the only part that's yours — is opening the door. Everything on this page is built for that, in the order you'll use it. You don't need to read it all. Find what you're doing right now and go.</p>
+    <p class="one-rule">The one rule: <b>lead with the money, not the method.</b> These owners are tired of being pitched "AI." We never lead with it. We lead with what their business is worth, what's walking out the door when they retire, and the waste we can give back. AI is just how we find it — it's never the opening line.</p>
+  </div>
+
+  <div class="nav">
+    <a href="#why">Why we win</a>
+    <a href="#who">Who to call</a>
+    <a href="#say">What to say</a>
+    <a href="#wary">Handle the wariness</a>
+    <a href="#send">What to send</a>
+    <a href="#meeting">Got a meeting</a>
+    <a href="#follow">Follow up</a>
+    <a href="#log">Log it</a>
+    <a href="#library">Full library</a>
+  </div>
+
+  <!-- WHY WE WIN -->
+  <div class="card" id="why">
+    <h2><span class="num">★</span> Why we win <span class="tag-new">New</span></h2>
+    <div class="sub">The 30-second version of our moat. Internalize this — it's the spine of every call.</div>
+    <ul>
+      <li><b>We've actually been in the room.</b> Tim was a VP at 35 and inside two acquisitions — commercial and federal. We know exactly what a buyer looks for and what kills a valuation. Almost nobody serving local businesses can say that.</li>
+      <li><b>We're honest about AI.</b> Tim just came from the biggest enterprise AI conference in the country. We know the difference between a demo and a result. We're not selling AI tools — we're the people who cut through the hype.</li>
+      <li><b>We only get paid when they save.</b> Our model is gain-share — a share of <i>verified</i> first-year savings, paid as they're realized. We don't win unless they win. That disarms the "what's this going to cost me" fear instantly.</li>
+      <li><b>A piece of the savings goes back to their people — in writing.</b> The workforce reinvestment covenant is in every engagement. We're not here to cut their team; we're here to protect and upskill the people who built the business.</li>
+      <li><b>We make the business worth more <i>and</i> less dependent on the owner.</b> A business that lives in the owner's head sells at 2–3x earnings. Documented, systematized, owner-independent, it sells at 4–5x. On a typical client that's $400K–$600K of real family wealth we help create.</li>
+    </ul>
+    <p style="margin-top:.5rem"><b>Sincerity is the product.</b> Not the tools, not the frameworks. The fact that Tim actually gives a damn what happens to the 45-year-old office manager. Owners feel that in the first conversation — and it's what builds the referral practice.</p>
+  </div>
+
+  <!-- WHO TO CALL -->
+  <div class="card" id="who">
+    <h2><span class="num">1</span> Who to call</h2>
+    <div class="sub">We screen on a <b>pain</b>, not a size. If a prospect fits this shape, they're worth a call. If they don't, move on — we're picky on purpose.</div>
+    <h3>The profile — a pain, not a revenue box</h3>
+    <ul>
+      <li><b>The business grew but the owner didn't get richer doing it.</b> Revenue climbed; profit thinned as overhead ate the growth. The owner runs harder every year for the same reward — and it still runs on them. <i>Don't tollgate on revenue or age — the squeeze is the signal, at any size.</i></li>
+      <li>Privately held, owner-operated, in business 10+ years — the owner <i>is</i> the business: pricing, customer relationships, how things really work all live in their head.</li>
+      <li>They're being pitched "AI" by vendors and have no way to judge any of it.</li>
+    </ul>
+    <h3>The gate we can't manufacture — a compelling event they <i>felt</i></h3>
+    <p>A plateau <i>without</i> an event is a conversation; a plateau <i>with</i> one is a client. Hunt the event: buyers circling, a soft or insulting offer, a health scare, a partner cashing out, a key person who gave notice, a kid who walked. The test isn't "did something happen" — it's "did they <i>feel</i> the consequence."</p>
+    <h3>Disqualify fast (so Tim only walks into rooms that can close)</h3>
+    <ul>
+      <li><b>The comfortable owner going nowhere.</b> Every business has waste and risk — that's <i>need</i>, and need is universal and useless as a qualifier. Comfortable owners don't move. We target <b>want</b>, not need.</li>
+      <li><b>An immovable gatekeeper who feels threatened and controls the owner.</b> If the right-hand who runs operations has a reason to want us gone and the owner won't overrule them, walk. Ask early: <i>who actually runs it day to day, and do they have a reason to want you gone?</i></li>
+    </ul>
+    <h3>Industries, in priority order</h3>
+    <p>Commercial printing &amp; trade services · logistics/distribution · light manufacturing · professional services firms · commercial construction · family-owned wholesale &amp; supply.</p>
+    <h3>Territory — two corridors out of Charlottesville</h3>
+    <ul>
+      <li><b>I-64:</b> Staunton → Waynesboro → Charlottesville → Zion Crossroads/Louisa → Richmond west</li>
+      <li><b>I-66:</b> Front Royal → Winchester → Warrenton → Gainesville/Haymarket → Manassas</li>
+    </ul>
+    <p style="margin-top:.4rem"><b>Work warm, but not personal.</b> Reach strangers through pull channels, not friends: CPAs and business bankers who already serve these owners, and trusted referrers who get inbound from owners getting sell-ready. One CPA or banker who trusts us beats fifteen cold drops — they know exactly who just had something happen. Our founding proof point should be a <i>non-friend</i> so the win proves the method, not the relationship.</p>
+  </div>
+
+  <!-- WHAT TO SAY -->
+  <div class="card" id="say">
+    <h2><span class="num">2</span> What to say to open the door</h2>
+    <div class="sub">The goal of the call is not to explain Sentir. It's to earn 30 minutes of Tim's time. Stay curious, stay short.</div>
+    <h3>The door-opener (works on any owner, any industry)</h3>
+    <div class="say"><b>"</b>Tim works with owners whose business grew but whose profit didn't — it got bigger and somehow harder, and it still runs on them. No charge, no pitch: he'll show you where the profit's leaking and what the business is worth today versus what it could be worth if it ran without you. Most owners are leaving real money on the table and don't know it. Worth a half hour?<b>"</b></div>
+    <h3>If they ask what it's about</h3>
+    <p>Keep it on <b>value and succession</b>, never on technology:</p>
+    <div class="say">"It's about two things every owner in this spot cares about: getting more out of the business now, and making sure it's worth what it should be when you step back. Tim finds the waste and the gaps that buyers and bankers care about — and he only gets paid when you actually save."</div>
+    <h3>The credibility line (use it early)</h3>
+    <div class="say">"Tim was a VP at 35, inside two acquisitions — one commercial, one federal. He knows exactly what buyers looked for and what we had to fix to get there. Most businesses that grew the way yours did have the same fixable gaps."</div>
+    <h3>The whole job of the call</h3>
+    <p>Get a <b>yes to a 30-minute meeting with Tim.</b> That's it. Don't sell the engagement, don't quote a price, don't explain the method. Curiosity + a low-risk ask + Tim's track record. Then book it.</p>
+  </div>
+
+  <!-- WARINESS -->
+  <div class="card" id="wary">
+    <h2><span class="num">3</span> Handle the wariness <span class="tag-new">New</span></h2>
+    <div class="sub">Our buyers are skeptical of outsiders and especially of "AI." That's healthy — agree with them, then redirect to value. Never argue.</div>
+
+    <div class="obj"><div class="q">"We're not interested in AI / we're not a tech company."</div>
+      <div class="a">"Good — neither is Tim, for its own sake. He's allergic to the hype. This isn't about installing software or replacing anybody. It's about what your business is worth and where money's leaking. The 'how' is his problem, not yours."</div></div>
+
+    <div class="obj"><div class="q">"We're doing fine / we're not looking to sell."</div>
+      <div class="a">"Most of Tim's clients aren't selling tomorrow either. But the same things that make a business sellable make it run better and worth more today — documented, less dependent on you. Even if you never sell, you'd want that. Thirty minutes to see what it looks like?"</div></div>
+
+    <div class="obj"><div class="q">"We're too small for consultants."</div>
+      <div class="a">"That's exactly who Tim built this for. The big firms can't afford to care about a business your size. Tim brings the enterprise rigor down to companies that were never going to get it otherwise — and he's paid out of the savings, not up front."</div></div>
+
+    <div class="obj"><div class="q">"What's this going to cost me?"</div>
+      <div class="a">"The look is free. If you engage, Tim's paid a share of what he actually saves you — verified, as it's realized. He doesn't win unless you do. And a slice of the first-year savings goes back into your team, in writing."</div></div>
+
+    <div class="obj"><div class="q">"How do I know you understand my business?"</div>
+      <div class="a">"Fair. That's why the first conversation is Tim listening, not presenting. He's sat across from owners who built something real with their hands and their relationships. You'll know in the first ten minutes whether he gets it."</div></div>
+  </div>
+
+  <!-- WHAT TO SEND -->
+  <div class="card" id="send">
+    <h2><span class="num">4</span> What to send &amp; leave behind</h2>
+    <div class="sub">After a call or a warm intro, send the right one thing — not everything. Less is more sincere.</div>
+    <h3>The pieces</h3>
+    <ul>
+      <li><b>The one-pager</b> — the quick "who Sentir is" leave-behind. Send after a first call. <span class="pending">file link — Tim to wire hosting</span></li>
+      <li><b>The book — <i>The Next Industrial Revolution</i></b> — the sincere guide to ethical AI. The door-opener for owners who want to think it through. Send to the more reflective ones. <span class="pending">PDF link — Tim to wire hosting</span></li>
+      <li><b>Web pages to point people to</b> (always current — just share the link):</li>
+    </ul>
+    <div class="btnrow">
+      <a class="btn ghost" href="index.html" target="_blank">Sentir Consulting — Home</a>
+      <a class="btn ghost" href="how-we-help.html" target="_blank">How We Help</a>
+      <a class="btn ghost" href="opportunity.html" target="_blank">The Opportunity</a>
+      <a class="btn gold" href="assessment.html" target="_blank">The Assessment</a>
+    </div>
+    <p style="margin-top:.9rem"><b>Rule of thumb:</b> one call → send the one-pager. Reflective owner → send the book. Ready to talk numbers → point them at the Assessment and book Tim.</p>
+  </div>
+
+  <!-- GOT A MEETING -->
+  <div class="card" id="meeting">
+    <h2><span class="num">5</span> You got a meeting — now what</h2>
+    <div class="sub">This is the win. Protect it.</div>
+    <ul>
+      <li><b>Book Tim immediately</b> while the owner's warm — same day if you can. Get it on the calendar before you hang up.</li>
+      <li><b>Send Tim the brief:</b> who they are, the business, what opened the door, anything personal you learned (kids in the business? thinking about retiring? a buyer sniffing around?). Tim walks in already knowing them.</li>
+      <li><b>Confirm 24 hours before.</b> A confirmed meeting is a kept meeting.</li>
+      <li><b>Then get out of the way.</b> Tim runs the room. Your job's done — beautifully.</li>
+    </ul>
+  </div>
+
+  <!-- FOLLOW UP -->
+  <div class="card" id="follow">
+    <h2><span class="num">6</span> Follow up — the 72-hour rule</h2>
+    <div class="sub">You are the oxygen. Tim opens on energy and moves on; you keep the thread alive. This is the whole value you add.</div>
+    <ul>
+      <li><b>Every contact gets a follow-up within 72 hours.</b> No exceptions. A "no thanks" you can retire; silence you keep warm.</li>
+      <li><b>After a call with no meeting yet:</b> short note + the one-pager + a single soft next step ("Tim's near Staunton on the 12th — worth 30 minutes then?").</li>
+      <li><b>After a meeting:</b> thank-you + whatever Tim promised to send. Same day.</li>
+      <li><b>Warm-but-not-ready:</b> tag for a touch every 4–6 weeks. These convert later. Don't drop them.</li>
+    </ul>
+  </div>
+
+  <!-- LOG IT -->
+  <div class="card" id="log">
+    <h2><span class="num">7</span> Log it — so Tim can see the pipeline</h2>
+    <div class="sub">If it isn't logged, it didn't happen. Tim reviews this; keep it current and honest.</div>
+    <ul>
+      <li>Every contact, call, and outcome goes in the <b>Pipeline Tracker.</b> <span class="pending">link — Tim to wire hosting</span></li>
+      <li>Capture: company, owner name, industry, source (cold / referral / CPA), last touch date, next action + date, stage (contacted → meeting set → met → proposal → engaged).</li>
+      <li>Flag anything hot for Tim same-day — don't wait for the weekly review.</li>
+    </ul>
+  </div>
+
+  <!-- LIBRARY -->
+  <div class="card" id="library">
+    <h2><span class="num">+</span> Full library (when you want the deep version)</h2>
+    <div class="sub">You won't need these every day. They're here when you want the long form.</div>
+    <ul>
+      <li>Field Brief · Territory Guide · Outreach Playbook · Objection Handling · One-Pager · Quick Reference <span class="pending">links — Tim to wire hosting</span></li>
+      <li>Founder Bio · Capability Statement · Mission &amp; Positioning · Ideal Client Profile <span class="pending">links — Tim to wire hosting</span></li>
+    </ul>
+  </div>
+
+  <!-- MAINTAINER NOTE (Tim only) -->
+  <div class="maint">
+    <h2>⚙ For Tim — how this stays current (delete before sharing widely)</h2>
+    <p>This page is the single front door. You update it; the account manager always sees the latest. Two simple controls:</p>
+    <ul>
+      <li><b>"New" badge:</b> add <code>&lt;span class="tag-new"&gt;New&lt;/span&gt;</code> after any heading you've just updated; delete it once it's old news.</li>
+      <li><b>File links:</b> the <code>file link — wire hosting</code> tags mark where the one-pager, book, tracker, and field-guide docs need real URLs. Decide hosting first (see below), then I'll swap the placeholders for live links.</li>
+    </ul>
+    <p style="margin-top:.7rem"><b>Two decisions before this goes live:</b></p>
+    <ul>
+      <li><b>Privacy:</b> the passphrase gate here is <i>light</i> — fine to deter casual eyes, but anyone who views source can bypass it, and this repo is public. Before the account manager relies on it, we should either host it somewhere with real login, or keep the most sensitive strategy out of the public version. Don't push to the live site until we choose.</li>
+      <li><b>File hosting:</b> the docx/xlsx/PDF assets live in your GitHub brain, which the account manager shouldn't touch. Pick a home they <i>can</i> reach (a private cloud folder, or converted to gated web pages) and I'll wire every link.</li>
+    </ul>
+  </div>
+
+  <footer>( ( Sentir — Sincere business consulting · Internal sales hub · Not for distribution</footer>
+</div>
+
+<script>
+  // Light gate. NOT real security — see note to Tim. Passphrase is set client-side.
+  var PASS = "sentir2026"; // Tim: change this; it's a deterrent, not a lock.
+  function tryGate(){
+    var v=document.getElementById('pw').value.trim();
+    if(v===PASS){ document.getElementById('gate').style.display='none'; }
+    else{ document.getElementById('err').textContent='Not quite — check with Tim.'; }
+  }
+</script>
+</body>
+</html>
